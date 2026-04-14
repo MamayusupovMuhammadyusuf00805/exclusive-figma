@@ -4,10 +4,9 @@ import './Login.css';
 function Login() {
   return (
     <div className="login-container">
-      {/* Chap tomondagi rasm qismi */}
       <div className="login-image-side">
         <img 
-          src="/public/imgs/dl.beatsnoop 1.svg" 
+          src="/imgs/dl.beatsnoop 1.svg" 
           alt="Shopping cart and phone" 
         />
       </div>

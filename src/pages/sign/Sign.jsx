@@ -7,7 +7,7 @@ function Sign() {
     <div className="signup-container">
       <div className="signup-image-side">
         <img 
-          src="/public/imgs/dl.beatsnoop 1.svg" 
+          src="/imgs/dl.beatsnoop 1.svg" 
           alt="Shopping cart and phone" 
         />
       </div>
