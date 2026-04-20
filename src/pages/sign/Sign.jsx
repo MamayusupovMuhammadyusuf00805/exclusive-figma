@@ -1,5 +1,6 @@
 import React from 'react';
 import './Sign.css';
+import { Link, NavLink } from 'react-router-dom';
 
 function Sign() {
 
@@ -32,7 +33,7 @@ function Sign() {
 
           <div className="form-footer">
             <span>Already have account?</span>
-            <a href="/login" className="login-link">Log in</a>
+            <NavLink to="/login">Login Up</NavLink>
           </div>
         </div>
       </div>

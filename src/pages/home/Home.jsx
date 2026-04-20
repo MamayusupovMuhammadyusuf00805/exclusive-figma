@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Home.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
@@ -16,165 +16,33 @@ import {
   IoStar,
   IoPhonePortraitOutline,
   IoDesktopOutline,
-  IoWatchOutline,
   IoCameraOutline,
-  IoHeadsetOutline,
-  IoGameControllerOutline,
 } from "react-icons/io5";
 
 import { FaApple } from "react-icons/fa";
-
+import Productmax from "../../components/Productmax";
+import { Link, NavLink } from "react-router-dom";
+import { DataContext } from "../../App";
 
 function Home() {
-  const categories = [
-    { name: "Woman's Fashion", hasSub: true },
-    { name: "Men's Fashion", hasSub: true },
-    { name: "Electronics", hasSub: false },
-    { name: "Home & Lifestyle", hasSub: false },
-    { name: "Medicine", hasSub: false },
-    { name: "Sports & Outdoor", hasSub: false },
-    { name: "Baby's & Toys", hasSub: false },
-    { name: "Groceries & Pets", hasSub: false },
-    { name: "Health & Beauty", hasSub: false },
-  ];
-
-  const flashProducts = [
-    {
-      id: 1,
-      title: "HAVIT HV-G92 Gamepad",
-      price: 120,
-      oldPrice: 160,
-      discount: "-40%",
-      rating: 88,
-      img: "/imgs/Frame 611.svg",
-    },
-    {
-      id: 2,
-      title: "AK-900 Wired Keyboard",
-      price: 960,
-      oldPrice: 1160,
-      discount: "-35%",
-      rating: 75,
-      img: "/imgs/Frame 611.svg",
-    },
-    {
-      id: 3,
-      title: "IPS LCD Gaming Monitor",
-      price: 370,
-      oldPrice: 400,
-      discount: "-30%",
-      rating: 99,
-      img: "/imgs/Frame 611.svg",
-    },
-    {
-      id: 4,
-      title: "S-Series Comfort Chair",
-      price: 375,
-      oldPrice: 400,
-      discount: "-25%",
-      rating: 99,
-      img: "/imgs/Frame 611.svg",
-    },
-    {
-      id: 5,
-      title: "HAVIT HV-G92 Gamepad",
-      price: 120,
-      oldPrice: 160,
-      discount: "-40%",
-      rating: 88,
-      img: "/imgs/Frame 611.svg",
-    },
-  ];
-
-  const categoryList = [
-    { name: "Phones", icon: <IoPhonePortraitOutline /> },
-    { name: "Computers", icon: <IoDesktopOutline /> },
-    { name: "SmartWatch", icon: <IoWatchOutline /> },
-    { name: "Camera", icon: <IoCameraOutline />, active: true },
-    { name: "HeadPhones", icon: <IoHeadsetOutline /> },
-    { name: "Gaming", icon: <IoGameControllerOutline /> },
-    { name: "Music", icon: <IoHeadsetOutline /> },
-  ];
-  const productList = [
-    {
-      name: "Breed Dry Dog Food",
-      price: 100,
-      stars: "★★★☆☆",
-      reviews: 35,
-      img: "/imgs/71RdoeXxtrL 1.svg",
-      isNew: false,
-    },
-    {
-      name: "CANON EOS DSLR Camera",
-      price: 360,
-      stars: "★★★★☆",
-      reviews: 95,
-      img: "/imgs/71RdoeXxtrL 1.svg",
-      isNew: false,
-    },
-    {
-      name: "ASUS FHD Gaming Laptop",
-      price: 700,
-      stars: "★★★★★",
-      reviews: 325,
-      img: "/imgs/71RdoeXxtrL 1.svg",
-      isNew: false,
-    },
-    {
-      name: "Curology Product Set",
-      price: 500,
-      stars: "★★★★☆",
-      reviews: 145,
-      img: "/imgs/71RdoeXxtrL 1.svg",
-      isNew: false,
-    },
-    {
-      name: "Kids Electric Car",
-      price: 960,
-      stars: "★★★★★",
-      reviews: 65,
-      img: "/imgs/71RdoeXxtrL 1.svg",
-      isNew: true,
-    },
-    {
-      name: "Jr. Zoom Soccer Cleats",
-      price: 1160,
-      stars: "★★★★☆",
-      reviews: 35,
-      img: "/imgs/71RdoeXxtrL 1.svg",
-      isNew: false,
-    },
-    {
-      name: "GP11 Shooter USB Gamepad",
-      price: 660,
-      stars: "★★★★☆",
-      reviews: 55,
-      img: "/imgs/71RdoeXxtrL 1.svg",
-      isNew: true,
-    },
-    {
-      name: "Quilted Satin Jacket",
-      price: 660,
-      stars: "★★★★☆",
-      reviews: 55,
-      img: "/imgs/71RdoeXxtrL 1.svg",
-      isNew: false,
-    },
-  ];
-
+  const { categoryData } = useContext(DataContext);
+  const { productData } = useContext(DataContext);
   return (
     <div className="home-page-wrapper">
       <div className="home-top-container">
         <aside className="sidebar">
           <ul className="category-list">
-            {categories.map((cat, index) => (
-              <li key={index} className="category-item">
-                <a href="#">{cat.name}</a>
-                {cat.hasSub && (
-                  <IoChevronForwardOutline className="chevron-icon" />
-                )}
-              </li>
-            ))}
+            {categoryData?.map((item) => {
+              return (
+                <div className="row">
+                  <img src={item?.image} alt="" />
+                  <li className="category-item">
+                    <Link to="/womans-fashion">{item.title}</Link>
+                    <IoChevronForwardOutline className="chevron-icon" />
+                  </li>
+                </div>
+              );
+            })}
           </ul>
         </aside>
 
@@ -186,27 +54,45 @@ function Home() {
             loop={true}
             className="hero-swiper"
           >
-            {[1, 2, 3].map((item) => (
-              <SwiperSlide key={item}>
-                <div className="slide-content">
-                  <div className="slide-text">
-                    <div className="brand-info">
-                      <FaApple size={40} />
-                      <span>iPhone 14 Series</span>
-                    </div>
-                    <h1 className="hero-title">
-                      Up to 10% <br /> off Voucher
-                    </h1>
-                    <a href="#" className="shop-now-link">
-                      Shop Now <IoArrowForwardOutline size={20} />
-                    </a>
+            <SwiperSlide>
+              <div className="slide-content">
+                <div className="slide-text">
+                  <div className="brand-info">
+                    <FaApple size={40} />
+                    <span>iPhone 14 Series</span>
                   </div>
-                  <div className="slide-image">
-                    <img src="/imgs/iphone.svg" alt="iPhone 14" />
-                  </div>
+                  <h1 className="hero-title">
+                    Up to 10% <br /> off Voucher
+                  </h1>
+                  <a href="#" className="shop-now-link">
+                    Shop Now <IoArrowForwardOutline size={20} />
+                  </a>
                 </div>
-              </SwiperSlide>
-            ))}
+                <div className="slide-image">
+                  <img src="/imgs/iphone.svg" alt="iPhone 14" />
+                </div>
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <div className="slide-content">
+                <div className="slide-text">
+                  <div className="brand-info">
+                    <FaApple size={40} />
+                    <span>iPhone 14 Series</span>
+                  </div>
+                  <h1 className="hero-title">
+                    Up to 10% <br /> off Voucher
+                  </h1>
+                  <a href="#" className="shop-now-link">
+                    Shop Now <IoArrowForwardOutline size={20} />
+                  </a>
+                </div>
+                <div className="slide-image">
+                  <img src="/imgs/iphone.svg" alt="iPhone 14" />
+                </div>
+              </div>
+            </SwiperSlide>
           </Swiper>
         </main>
       </div>
@@ -219,27 +105,6 @@ function Home() {
 
         <div className="section-header">
           <h2 className="section-title">Flash Sales</h2>
-          <div className="timer">
-            <div className="timer-item">
-              <span className="timer-label">Days</span>
-              <span className="timer-value">03</span>
-            </div>
-            <span className="timer-colon">:</span>
-            <div className="timer-item">
-              <span className="timer-label">Hours</span>
-              <span className="timer-value">23</span>
-            </div>
-            <span className="timer-colon">:</span>
-            <div className="timer-item">
-              <span className="timer-label">Minutes</span>
-              <span className="timer-value">19</span>
-            </div>
-            <span className="timer-colon">:</span>
-            <div className="timer-item">
-              <span className="timer-label">Seconds</span>
-              <span className="timer-value">56</span>
-            </div>
-          </div>
           <div className="navigation-arrows">
             <button className="arrow-btn prev-flash">
               <IoArrowBackOutline />
@@ -262,46 +127,13 @@ function Home() {
           }}
           className="products-swiper"
         >
-          {flashProducts.map((product) => (
-            <SwiperSlide key={product.id}>
-              <div className="product-card">
-                <div className="product-img-wrapper">
-                  <span className="discount-badge">{product.discount}</span>
-                  <div className="card-actions">
-                    <button className="action-btn">
-                      <IoHeartOutline />
-                    </button>
-                    <button className="action-btn">
-                      <IoEyeOutline />
-                    </button>
-                  </div>
-                  <img
-                    src={product.img}
-                    alt={product.title}
-                    className="product-img"
-                  />
-                  <button className="add-to-cart">Add To Cart</button>
-                </div>
-                <div className="product-info">
-                  <h3 className="product-title">{product.title}</h3>
-                  <div className="product-price">
-                    <span className="new-price">${product.price}</span>
-                    <span className="old-price">${product.oldPrice}</span>
-                  </div>
-                  <div className="product-rating">
-                    <div className="stars">
-                      {[1, 2, 3, 4, 5].map((_, i) => (
-                        <IoStar key={i} />
-                      ))}
-                    </div>
-                    <span>({product.rating})</span>
-                  </div>
-                </div>
-              </div>
+          {productData?.map((item) => (
+            <SwiperSlide key={item.id}>
+              <Productmax item={item} />
             </SwiperSlide>
           ))}
+          <button className="view-all-btn">View All Products</button>
         </Swiper>
-        <button className="view-all-btn">View All Products</button>
       </section>
 
       <section className="category-browse-section">
@@ -334,14 +166,30 @@ function Home() {
           }}
           className="category-swiper"
         >
-          {categoryList.map((cat, index) => (
-            <SwiperSlide key={index}>
-              <div className={`category-card ${cat.active ? "active" : ""}`}>
-                <div className="cat-icon-react">{cat.icon}</div>
-                <span>{cat.name}</span>
+          <SwiperSlide>
+            <div className="category-card">
+              <div className="cat-icon-react">
+                <IoPhonePortraitOutline />
               </div>
-            </SwiperSlide>
-          ))}
+              <span>Phones</span>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="category-card">
+              <div className="cat-icon-react">
+                <IoDesktopOutline />
+              </div>
+              <span>Computers</span>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="category-card active">
+              <div className="cat-icon-react">
+                <IoCameraOutline />
+              </div>
+              <span>Camera</span>
+            </div>
+          </SwiperSlide>
         </Swiper>
       </section>
 
@@ -357,37 +205,6 @@ function Home() {
         </div>
 
         <div className="best-selling-grid">
-          <div className="product-card">
-            <div className="product-img-wrapper">
-              <div className="card-actions">
-                <button className="action-btn">
-                  <IoHeartOutline />
-                </button>
-                <button className="action-btn">
-                  <IoEyeOutline />
-                </button>
-              </div>
-              <img src="/imgs/coat.png" alt="Coat" className="product-img" />
-            </div>
-            <div className="product-info">
-              <h3 className="product-title">The north coat</h3>
-              <div className="product-price">
-                <span className="new-price">$260</span>
-                <span className="old-price">$360</span>
-              </div>
-              <div className="product-rating">
-                <div className="stars">
-                  <IoStar />
-                  <IoStar />
-                  <IoStar />
-                  <IoStar />
-                  <IoStar />
-                </div>
-                <span className="rating-count">(65)</span>
-              </div>
-            </div>
-          </div>
-
           <div className="product-card">
             <div className="product-img-wrapper">
               <div className="card-actions">
@@ -453,36 +270,6 @@ function Home() {
               </div>
             </div>
           </div>
-
-          <div className="product-card">
-            <div className="product-img-wrapper">
-              <div className="card-actions">
-                <button className="action-btn">
-                  <IoHeartOutline />
-                </button>
-                <button className="action-btn">
-                  <IoEyeOutline />
-                </button>
-              </div>
-              <img src="/imgs/shelf.png" alt="Shelf" className="product-img" />
-            </div>
-            <div className="product-info">
-              <h3 className="product-title">Small BookSelf</h3>
-              <div className="product-price">
-                <span className="new-price">$360</span>
-              </div>
-              <div className="product-rating">
-                <div className="stars">
-                  <IoStar />
-                  <IoStar />
-                  <IoStar />
-                  <IoStar />
-                  <IoStar />
-                </div>
-                <span className="rating-count">(65)</span>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -534,30 +321,44 @@ function Home() {
         </div>
 
         <div className="grid">
-          {productList.map((item, index) => (
-            <div key={index} className="card">
-              <div className="img-holder">
-                {item.isNew && <span className="new-badge">NEW</span>}
-                <img src={item.img} alt={item.name} />
-
-                <div className="side-icons">
-                  <div className="icon">♡</div>
-                  <div className="icon">👁</div>
-                </div>
-
-                <button className="add-btn">Add To Cart</button>
+          <div className="card">
+            <div className="img-holder">
+              <img src="/imgs/71RdoeXxtrL 1.svg" alt="Dog Food" />
+              <div className="side-icons">
+                <div className="icon">♡</div>
+                <div className="icon">👁</div>
               </div>
-
-              <div className="info">
-                <h3>{item.name}</h3>
-                <div className="price-row">
-                  <span className="price">${item.price}</span>
-                  <span className="stars">{item.stars}</span>
-                  <span className="rev">({item.reviews})</span>
-                </div>
+              <button className="add-btn">Add To Cart</button>
+            </div>
+            <div className="info">
+              <h3>Breed Dry Dog Food</h3>
+              <div className="price-row">
+                <span className="price">$100</span>
+                <span className="stars">★★★☆☆</span>
+                <span className="rev">(35)</span>
               </div>
             </div>
-          ))}
+          </div>
+
+          <div className="card">
+            <div className="img-holder">
+              <span className="new-badge">NEW</span>
+              <img src="/imgs/71RdoeXxtrL 1.svg" alt="Car" />
+              <div className="side-icons">
+                <div className="icon">♡</div>
+                <div className="icon">👁</div>
+              </div>
+              <button className="add-btn">Add To Cart</button>
+            </div>
+            <div className="info">
+              <h3>Kids Electric Car</h3>
+              <div className="price-row">
+                <span className="price">$960</span>
+                <span className="stars">★★★★★</span>
+                <span className="rev">(65)</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <button className="view-all">View All Products</button>
@@ -580,10 +381,7 @@ function Home() {
           </div>
 
           <div className="grid-item women">
-            <img
-              src="/imgs/girl.svg"
-              alt="Women's Collection"
-            />
+            <img src="/imgs/girl.svg" alt="Women's Collection" />
             <div className="item-info">
               <h3>Women's Collections</h3>
               <p>Featured woman collections that give you another vibe.</p>
@@ -611,44 +409,48 @@ function Home() {
         </div>
       </div>
 
-
       <div className="features-container">
-      <div className="feature-item">
-        <div className="icon-circle-outer">
-          <div className="icon-circle-inner">
-            <img src="/imgs/icon-delivery.svg" alt="" />
+        <div className="feature-item">
+          <div className="icon-circle-outer">
+            <div className="icon-circle-inner">
+              <img src="/imgs/icon-delivery.svg" alt="Delivery" />
+            </div>
           </div>
+          <h3>FREE AND FAST DELIVERY</h3>
+          <p>Free delivery for all orders over $140</p>
         </div>
-        <h3>FREE AND FAST DELIVERY</h3>
-        <p>Free delivery for all orders over $140</p>
-      </div>
 
-      <div className="feature-item">
-        <div className="icon-circle-outer">
-          <div className="icon-circle-inner">
-            <img src="/imgs/Icon-Customer service.svg" alt="" />
+        <div className="feature-item">
+          <div className="icon-circle-outer">
+            <div className="icon-circle-inner">
+              <img
+                src="/imgs/Icon-Customer service.svg"
+                alt="Customer Service"
+              />
+            </div>
           </div>
+          <h3>24/7 CUSTOMER SERVICE</h3>
+          <p>Friendly 24/7 customer support</p>
         </div>
-        <h3>24/7 CUSTOMER SERVICE</h3>
-        <p>Friendly 24/7 customer support</p>
-      </div>
 
-      <div className="feature-item">
-        <div className="icon-circle-outer">
-          <div className="icon-circle-inner">
-            <img src="/imgs/Icon-secure.svg" alt="" />
+        <div className="feature-item">
+          <div className="icon-circle-outer">
+            <div className="icon-circle-inner">
+              <img src="/imgs/Icon-secure.svg" alt="Secure" />
+            </div>
           </div>
+          <h3>MONEY BACK GUARANTEE</h3>
+          <p>We return money within 30 days</p>
         </div>
-        <h3>MONEY BACK GUARANTEE</h3>
-        <p>We return money within 30 days</p>
-      </div>
 
-      <div className="scroll-top">
-        <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-          ↑
-        </button>
+        <div className="scroll-top">
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            ↑
+          </button>
+        </div>
       </div>
-    </div>
     </div>
   );
 }

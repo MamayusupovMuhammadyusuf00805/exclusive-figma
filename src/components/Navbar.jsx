@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navbar.css";
 import {
   IoSearchOutline,
@@ -6,9 +6,22 @@ import {
   IoCartOutline,
   IoChevronDownOutline,
 } from "react-icons/io5";
+import {
+  FiUser,
+  FiShoppingBag,
+  FiXCircle,
+  FiStar,
+  FiLogOut,
+} from "react-icons/fi";
 import { NavLink } from "react-router-dom";
 
 function Navbar() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   return (
     <div className="navbar-wrapper">
       <div className="top-banner">
@@ -50,12 +63,50 @@ function Navbar() {
           </div>
 
           <div className="icon-group">
-            <button className="icon-btn">
-              <IoHeartOutline size={26} />
-            </button>
-            <button className="icon-btn">
+            <NavLink to="/washlist">
+              <button className="icon-btn">
+                <IoHeartOutline size={26} />
+              </button>
+            </NavLink>
+            <NavLink to="/cart">
+              <button className="icon-btn">
               <IoCartOutline size={26} />
             </button>
+            </NavLink>
+            
+
+            <div className="user-menu-container">
+              <button
+                onClick={toggleDropdown}
+                className={`icon-btn ${isDropdownOpen ? "active-user" : ""}`}
+              >
+                <FiUser size={26} />
+              </button>
+
+              {isDropdownOpen && (
+                <div className="user-dropdown">
+                  <ul>
+                    <NavLink to="/account">
+                      <li>
+                        <FiUser size={20} /> <span>Manage My Account</span>
+                      </li>
+                    </NavLink>
+                    <li>
+                      <FiShoppingBag size={20} /> <span>My Order</span>
+                    </li>
+                    <li>
+                      <FiXCircle size={20} /> <span>My Cancellations</span>
+                    </li>
+                    <li>
+                      <FiStar size={20} /> <span>My Reviews</span>
+                    </li>
+                    <li>
+                      <FiLogOut size={20} /> <span>Logout</span>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </nav>

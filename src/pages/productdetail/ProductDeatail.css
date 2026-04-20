@@ -1,0 +1,261 @@
+.product-page-container {
+    max-width: 1170px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.breadcrumb {
+    font-size: 14px;
+    color: #808080;
+    margin-bottom: 40px;
+}
+
+.active-breadcrumb {
+    color: #000;
+    font-weight: 500;
+}
+
+.product-main-content {
+    display: flex;
+    margin-bottom: 140px;
+    gap: 70px;
+}
+
+.image-gallery {
+    display: flex;
+    gap: 30px;
+    flex: 1.2;
+}
+
+.thumbnail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.thumb-item {
+    width: 170px;
+    height: 138px;
+    background-color: #F5F5F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.thumb-item img {
+    max-width: 80%;
+    object-fit: contain;
+}
+
+.main-image {
+    width: 500px;
+    height: 600px;
+    background-color: #F5F5F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.main-image img {
+    max-width: 90%;
+}
+
+.product-details-info {
+    flex: 1;
+}
+
+.product-title1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.rating-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.review-count {
+    color: #808080;
+    font-size: 14px;
+}
+
+.stock-status {
+    color: #00FF66;
+    font-size: 14px;
+}
+
+.product-price {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 24px;
+}
+
+.product-description {
+    font-size: 14px;
+    line-height: 21px;
+    margin-bottom: 24px;
+}
+
+.detail-hr {
+    border: 0.5px solid #000;
+    opacity: 0.5;
+    margin-bottom: 24px;
+}
+
+.option-section {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.option-label {
+    font-size: 20px;
+}
+
+.color-options {
+    display: flex;
+    gap: 8px;
+}
+
+.color-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+}
+
+.color-circle.blue {
+    background-color: #A0BCE0;
+}
+
+.color-circle.red {
+    background-color: #E07575;
+}
+
+.color-circle.selected {
+    outline: 2px solid black;
+}
+
+.size-options {
+    display: flex;
+    gap: 16px;
+}
+
+.size-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #808080;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.size-btn.active {
+    background-color: #DB4444;
+    color: white;
+    border-color: #DB4444;
+}
+
+.action-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.quantity-selector {
+    display: flex;
+    border: 1px solid #808080;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.quantity-selector button {
+    width: 40px;
+    height: auto;
+    border: none;
+    background: white;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.plus-btn {
+    background-color: #DB4444 !important;
+    color: white;
+}
+
+.qty-value {
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #808080;
+}
+
+.buy-now-btn {
+    background-color: #DB4444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.wishlist-btn {
+    background: white;
+    border: 1px solid #808080;
+    border-radius: 4px;
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.delivery-card {
+    border: 1px solid #808080;
+    border-radius: 4px;
+}
+
+.delivery-item {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.delivery-text h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.delivery-text p {
+    font-size: 12px;
+    margin: 8px 0 0;
+}
+
+.delivery-text span {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.delivery-card hr {
+    border: 0.5px solid #808080;
+    margin: 0;
+}
