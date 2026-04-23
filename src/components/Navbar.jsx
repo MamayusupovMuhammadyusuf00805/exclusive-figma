@@ -41,15 +41,13 @@ function Navbar() {
 
         <ul className="nav-menu">
           <li>
-            <a href="/" className="active">
-              Home
-            </a>
+            <NavLink to="/"><Home></Home></NavLink>
           </li>
           <li>
             <NavLink to="/contact">Contact</NavLink>
           </li>
           <li>
-            <NavLink to="/about"><About></About></NavLink>
+            <NavLink to="/about">About</NavLink>
           </li>
           <li>
             <NavLink to="/sign">Sign Up</NavLink>
