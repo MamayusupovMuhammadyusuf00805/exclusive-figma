@@ -1,35 +1,13 @@
 export const baseUrl = "https://ecommercev01.pythonanywhere.com/";
 
 export const getCategory = () => {
-  const requestOptions = {
-    method: "GET",
-    redirect: "follow",
-  };
-
-  return fetch(
-    "https://ecommercev01.pythonanywhere.com/product/categories/",
-    requestOptions,
-  )
+  return fetch(`${baseUrl}product/categories/`)
     .then((response) => response.json())
-    .then((result) => {
-      return result;
-    })
     .catch((error) => console.error(error));
 };
 
 export const getProduct = () => {
-  const requestOptions = {
-    method: "GET",
-    redirect: "follow",
-  };
-
-  return fetch(
-    "https://ecommercev01.pythonanywhere.com/product/list/",
-    requestOptions,
-  )
+  return fetch(`${baseUrl}product/list/`)
     .then((response) => response.json())
-    .then((result) => {
-      return result;
-    })
     .catch((error) => console.error(error));
 };

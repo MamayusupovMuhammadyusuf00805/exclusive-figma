@@ -5,11 +5,10 @@ import { baseUrl } from "../services";
 import { useNavigate } from "react-router-dom";
 
 function Productmax({ item }) {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const goToDetail = () => {
     navigate("/productdetail");
-    
   };
 
   return (
@@ -28,7 +27,7 @@ function Productmax({ item }) {
 
         <img
           onClick={goToDetail}
-          style={{ cursor : "pointer" }}
+          style={{ cursor: "pointer" }}
           className="product-img"
           src={`${baseUrl}${item?.pictures[0]}`}
           alt={item?.title}
@@ -45,7 +44,9 @@ function Productmax({ item }) {
           onClick={goToDetail}
           style={{ cursor: "pointer" }}
         >
-          {item?.title}
+          {item?.title?.length > 25
+            ? item?.title.slice(0, 25) + "..."
+            : item?.title}
         </h3>
         <div className="product-price">
           <span className="new-price">$120</span>

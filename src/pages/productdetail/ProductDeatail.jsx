@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import "./ProductDeatail.css";
-// Iconlar
 import {
   IoStar,
   IoHeartOutline,

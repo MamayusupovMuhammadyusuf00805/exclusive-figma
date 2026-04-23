@@ -46,7 +46,7 @@ function Navbar() {
             </a>
           </li>
           <li>
-            <a href="/contact">Contact</a>
+            <NavLink to="/contact">Contact</NavLink>
           </li>
           <li>
             <a href="/about">About</a>

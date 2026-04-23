@@ -132,7 +132,9 @@ function Home() {
               <Productmax item={item} />
             </SwiperSlide>
           ))}
-          <button className="view-all-btn">View All Products</button>
+          <div className="view">
+            <button className="view-all-btn">View All Products</button>
+          </div>
         </Swiper>
       </section>
 
@@ -154,43 +156,45 @@ function Home() {
           </div>
         </div>
 
-        <Swiper
-          modules={[Navigation]}
-          spaceBetween={30}
-          slidesPerView={6}
-          navigation={{ prevEl: ".prev-cat", nextEl: ".next-cat" }}
-          breakpoints={{
-            320: { slidesPerView: 2 },
-            768: { slidesPerView: 4 },
-            1024: { slidesPerView: 6 },
-          }}
-          className="category-swiper"
-        >
-          <SwiperSlide>
-            <div className="category-card">
-              <div className="cat-icon-react">
-                <IoPhonePortraitOutline />
-              </div>
-              <span>Phones</span>
+        <div className="category-section">
+          <div className="category-header">
+            <div className="subtitle-wrapper">
+              <div className="red-box"></div>
+              <span className="subtitle">Categories</span>
             </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="category-card">
-              <div className="cat-icon-react">
-                <IoDesktopOutline />
+            <div className="header-main">
+              <h2>Browse By Category</h2>
+              <div className="nav-buttons">
+                <button className="prev-cat">←</button>
+                <button className="next-cat">→</button>
               </div>
-              <span>Computers</span>
             </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="category-card active">
-              <div className="cat-icon-react">
-                <IoCameraOutline />
-              </div>
-              <span>Camera</span>
-            </div>
-          </SwiperSlide>
-        </Swiper>
+          </div>
+
+          <Swiper
+            modules={[Navigation]}
+            spaceBetween={30}
+            slidesPerView={6}
+            navigation={{ prevEl: ".prev-cat", nextEl: ".next-cat" }}
+            breakpoints={{
+              320: { slidesPerView: 2 },
+              768: { slidesPerView: 4 },
+              1024: { slidesPerView: 6 },
+            }}
+            className="category-swiper"
+          >
+            {categoryData?.map((item) => (
+              <SwiperSlide key={item.id}>
+                <Link to={`/category/${item.id}`} className="category-card">
+                  <div className="cat-icon">
+                    <img src={item.image} alt={item.title} />
+                  </div>
+                  <span>{item.title}</span>
+                </Link>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </section>
 
       <section className="best-selling-section">
@@ -199,77 +203,19 @@ function Home() {
           <span>This Month</span>
         </div>
 
-        <div className="section-header-flex">
+        <div className="section-header">
           <h2 className="section-title">Best Selling Products</h2>
           <button className="view-all-red-btn">View All</button>
         </div>
 
         <div className="best-selling-grid">
-          <div className="product-card">
-            <div className="product-img-wrapper">
-              <div className="card-actions">
-                <button className="action-btn">
-                  <IoHeartOutline />
-                </button>
-                <button className="action-btn">
-                  <IoEyeOutline />
-                </button>
-              </div>
-              <img src="/imgs/bag.png" alt="Bag" className="product-img" />
-            </div>
-            <div className="product-info">
-              <h3 className="product-title">Gucci duffle bag</h3>
-              <div className="product-price">
-                <span className="new-price">$960</span>
-                <span className="old-price">$1160</span>
-              </div>
-              <div className="product-rating">
-                <div className="stars">
-                  <IoStar />
-                  <IoStar />
-                  <IoStar />
-                  <IoStar />
-                  <IoStar />
-                </div>
-                <span className="rating-count">(65)</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="product-card">
-            <div className="product-img-wrapper">
-              <div className="card-actions">
-                <button className="action-btn">
-                  <IoHeartOutline />
-                </button>
-                <button className="action-btn">
-                  <IoEyeOutline />
-                </button>
-              </div>
-              <img
-                src="/imgs/cooler.png"
-                alt="Cooler"
-                className="product-img"
-              />
-            </div>
-            <div className="product-info">
-              <h3 className="product-title">RGB liquid CPU Cooler</h3>
-              <div className="product-price">
-                <span className="new-price">$160</span>
-                <span className="old-price">$170</span>
-              </div>
-              <div className="product-rating">
-                <div className="stars">
-                  <IoStar />
-                  <IoStar />
-                  <IoStar />
-                  <IoStar />
-                  <IoStar />
-                </div>
-                <span className="rating-count">(65)</span>
-              </div>
-            </div>
-          </div>
+          {productData && productData.length > 0 ? (
+            productData
+              .slice(0, 4)
+              .map((item) => <Productmax key={item.id} item={item} />)
+          ) : (
+            <div className="loading">Yuklanmoqda...</div>
+          )}
         </div>
       </section>
 
@@ -308,61 +254,37 @@ function Home() {
           <img src="/imgs/kalonka.svg" alt="JBL Boombox" />
         </div>
       </div>
-
-      <div className="container">
-        <div className="header">
-          <div className="red-tag">Our Products</div>
-          <div className="title-row">
-            <h2>Explore Our Products</h2>
-            <div className="arrows">
-              <span>←</span> <span>→</span>
+      <section className="our-products-section">
+        <div className="container">
+          <div className="section-header-wrapper">
+            <div className="subtitle-container">
+              <div className="red-box"></div>
+              <span className="red-tag">Our Products</span>
             </div>
+            <div className="title-row">
+              <h2 className="section-title">Explore Our Products</h2>
+              <div className="navigation-arrows">
+                <button className="arrow-btn">←</button>
+                <button className="arrow-btn">→</button>
+              </div>
+            </div>
+          </div>
+
+          <div className="products-grid">
+            {productData && productData.length > 0 ? (
+              productData
+                .slice(0, 8)
+                .map((item) => <Productmax key={item.id} item={item} />)
+            ) : (
+              <p>Yuklanmoqda...</p>
+            )}
+          </div>
+
+          <div className="view-all-container">
+            <button className="view-all-red-btn">View All Products</button>
           </div>
         </div>
-
-        <div className="grid">
-          <div className="card">
-            <div className="img-holder">
-              <img src="/imgs/71RdoeXxtrL 1.svg" alt="Dog Food" />
-              <div className="side-icons">
-                <div className="icon">♡</div>
-                <div className="icon">👁</div>
-              </div>
-              <button className="add-btn">Add To Cart</button>
-            </div>
-            <div className="info">
-              <h3>Breed Dry Dog Food</h3>
-              <div className="price-row">
-                <span className="price">$100</span>
-                <span className="stars">★★★☆☆</span>
-                <span className="rev">(35)</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="img-holder">
-              <span className="new-badge">NEW</span>
-              <img src="/imgs/71RdoeXxtrL 1.svg" alt="Car" />
-              <div className="side-icons">
-                <div className="icon">♡</div>
-                <div className="icon">👁</div>
-              </div>
-              <button className="add-btn">Add To Cart</button>
-            </div>
-            <div className="info">
-              <h3>Kids Electric Car</h3>
-              <div className="price-row">
-                <span className="price">$960</span>
-                <span className="stars">★★★★★</span>
-                <span className="rev">(65)</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button className="view-all">View All Products</button>
-      </div>
+      </section>
 
       <div className="new-arrival-container">
         <div className="section-title">

@@ -13,14 +13,17 @@
     padding-right: 16px;
     padding-top: 10px;
 }
-.sidebar ul .row{
+
+.sidebar ul .row {
     display: flex;
     align-items: center;
     gap: 20px;
 }
-.sidebar ul .row img{
-    width: 50px;
+
+.sidebar ul .row img {
+    width: 40px;
 }
+
 .category-list {
     list-style: none;
     padding: 0;
@@ -279,6 +282,7 @@
 
 .section-header {
     display: flex;
+    justify-content: space-between;
     align-items: flex-end;
     gap: 87px;
     margin-bottom: 40px;
@@ -339,8 +343,8 @@
 }
 
 .view-all-btn {
-    display: block;
-    margin: 0 auto;
+    display: flex;
+    margin-top: 60px;
     background-color: #db4444;
     color: white;
     border: none;
@@ -348,6 +352,11 @@
     border-radius: 4px;
     cursor: pointer;
     font-weight: 500;
+}
+
+.view {
+    display: flex;
+    justify-content: center;
 }
 
 .navigation-arrows {
@@ -598,8 +607,6 @@
 
 .red-tag {
     color: #DB4444;
-    border-left: 15px solid #DB4444;
-    padding-left: 15px;
     font-weight: bold;
     margin-bottom: 20px;
 }
@@ -877,4 +884,188 @@
     border-radius: 50%;
     font-size: 20px;
     cursor: pointer;
+}
+
+
+
+.category-section {
+    padding: 60px 0;
+}
+
+.subtitle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #db4444;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.red-box {
+    width: 20px;
+    height: 40px;
+    background-color: #db4444;
+    border-radius: 4px;
+}
+
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    height: 145px;
+    border: 1px solid #0000004a;
+    border-radius: 4px;
+    text-decoration: none;
+    color: black;
+    transition: 0.3s all ease;
+}
+
+.cat-icon {
+    font-size: 40px;
+}
+
+.cat-icon img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
+
+.category-card:hover {
+    background-color: #db4444;
+    color: black;
+    border-color: #db4444;
+}
+
+
+
+.nav-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.prev-cat,
+.next-cat {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: none;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.swiper-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.our-products-section {
+    padding: 80px 0;
+}
+
+/* Header qismi stillari */
+.subtitle-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.red-box {
+    width: 20px;
+    height: 40px;
+    background-color: #db4444;
+    border-radius: 4px;
+}
+
+.title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.section-title {
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+/* Navigatsiya tugmalari */
+.navigation-arrows {
+    display: flex;
+    gap: 10px;
+}
+
+.arrow-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: none;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.arrow-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* 2 Qatorli Grid (4 tadan 2 qator) */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 ta ustun */
+    gap: 60px 30px;
+    margin-bottom: 60px;
+}
+
+.view-all-container {
+    display: flex;
+    justify-content: center;
+}
+
+.view-all-red-btn {
+    background-color: #db4444;
+    color: white;
+    border: none;
+    padding: 16px 48px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.view-all-red-btn:hover {
+    background-color: #e07575;
+}
+
+@media (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .products-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
 }
