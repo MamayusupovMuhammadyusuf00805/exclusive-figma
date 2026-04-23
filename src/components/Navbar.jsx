@@ -49,7 +49,7 @@ function Navbar() {
             <NavLink to="/contact">Contact</NavLink>
           </li>
           <li>
-            <a href="/about">About</a>
+            <NavLink to="/about"><About></About></NavLink>
           </li>
           <li>
             <NavLink to="/sign">Sign Up</NavLink>
