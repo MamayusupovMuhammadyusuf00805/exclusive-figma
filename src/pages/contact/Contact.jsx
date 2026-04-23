@@ -1,6 +1,5 @@
 import React from "react";
-import "./Contact.css"; // CSS faylni ulashni unutmang
-
+import "./Contact.css";
 function Contact() {
   return (
     <div className="contact-container">

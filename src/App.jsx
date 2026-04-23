@@ -12,8 +12,8 @@ import ProductDetail from "./pages/productdetail/ProductDeatail";
 import Washlist from "./pages/washlist/Washlist";
 import Chekout from "./pages/chekout/Chekout";
 import Cart from "./pages/cart/Cart";
-import Contact from "./pages/contact/Contact";
 import About from "./pages/about/About";
+import Contact from "./pages/contact/Contact";
 
 export const DataContext = createContext();
 
@@ -42,7 +42,7 @@ function App() {
             <Route path="/washlist" element={<Washlist />} />
             <Route path="/chekout" element={<Chekout />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About/>} />
           </Routes>
           <Footer />
