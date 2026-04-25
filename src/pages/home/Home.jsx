@@ -157,19 +157,6 @@ function Home() {
         </div>
 
         <div className="category-section">
-          <div className="category-header">
-            <div className="subtitle-wrapper">
-              <div className="red-box"></div>
-              <span className="subtitle">Categories</span>
-            </div>
-            <div className="header-main">
-              <h2>Browse By Category</h2>
-              <div className="nav-buttons">
-                <button className="prev-cat">←</button>
-                <button className="next-cat">→</button>
-              </div>
-            </div>
-          </div>
 
           <Swiper
             modules={[Navigation]}

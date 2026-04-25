@@ -36,7 +36,6 @@
 
 .thumb-item {
     width: 170px;
-    height: 138px;
     background-color: #F5F5F5;
     display: flex;
     align-items: center;
@@ -92,7 +91,6 @@
 }
 
 .product-price {
-    font-size: 24px;
     font-weight: 500;
     margin-bottom: 24px;
 }

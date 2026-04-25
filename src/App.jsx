@@ -8,47 +8,47 @@ import Login from "./pages/login/login";
 import { getCategory, getProduct } from "./services";
 import { createContext, useEffect, useState } from "react";
 import Account from "./pages/account/Account";
-import ProductDetail from "./pages/productdetail/ProductDeatail";
 import Washlist from "./pages/washlist/Washlist";
 import Chekout from "./pages/chekout/Chekout";
 import Cart from "./pages/cart/Cart";
 import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
+import ProductDetail from "./pages/productdetail/ProductDetail";
 
 export const DataContext = createContext();
 
 function App() {
-  const [categoryData, setCategoryData] = useState();
-  const [productData, setProductData ] = useState()
+  const [categoryData, setCategoryData] = useState([]);
+  const [productData, setProductData] = useState([]);
+
   useEffect(() => {
     getCategory()?.then((item) => {
       setCategoryData(item);
     });
-    getProduct()?.then((info)=>{
-        setProductData(info)
-    })
+    getProduct()?.then((info) => {
+      setProductData(info);
+    });
   }, []);
+
   return (
-    <>
-      <BrowserRouter>
-        <DataContext value={{ categoryData, productData}}>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/sign" element={<Sign />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/productdetail" element={<ProductDetail />} />
-            <Route path="/washlist" element={<Washlist />} />
-            <Route path="/chekout" element={<Chekout />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/about" element={<About/>} />
-          </Routes>
-          <Footer />
-        </DataContext>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <DataContext.Provider value={{ categoryData, productData }}>
+        <Navbar />
+        <Routes>
+          <Route path="/home" element={<Home />} /> 
+          <Route path="/sign" element={<Sign />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/productdetail/:id" element={<ProductDetail />} />
+          <Route path="/washlist" element={<Washlist />} />
+          <Route path="/chekout" element={<Chekout />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+        <Footer />
+      </DataContext.Provider>
+    </BrowserRouter>
   );
 }
 

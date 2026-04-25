@@ -8,7 +8,7 @@ function Productmax({ item }) {
   const navigate = useNavigate();
 
   const goToDetail = () => {
-    navigate("/productdetail");
+    navigate(`/productdetail/${item?.id}`);
   };
 
   return (
@@ -29,7 +29,7 @@ function Productmax({ item }) {
           onClick={goToDetail}
           style={{ cursor: "pointer" }}
           className="product-img"
-          src={`${baseUrl}${item?.pictures[0]}`}
+          src={`${baseUrl}${item?.pictures?.[0]}`}
           alt={item?.title}
         />
 
@@ -49,8 +49,10 @@ function Productmax({ item }) {
             : item?.title}
         </h3>
         <div className="product-price">
-          <span className="new-price">$120</span>
-          <span className="old-price">$160</span>
+          <span className="new-price">${item?.price}</span>
+          <span className="old-price">
+            ${item?.price ? item.price + 40 : 160}
+          </span>
         </div>
         <div className="product-rating">
           <div className="stars">

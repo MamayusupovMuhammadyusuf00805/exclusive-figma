@@ -1,11 +1,7 @@
 import React, { useState, useContext } from "react";
-import "./ProductDeatail.css";
-import {
-  IoStar,
-  IoHeartOutline,
-  IoArrowBackOutline,
-  IoArrowForwardOutline,
-} from "react-icons/io5";
+import { useParams } from "react-router-dom";
+import "./ProductDetail.css";
+import { IoStar, IoHeartOutline } from "react-icons/io5";
 import { TbTruckDelivery } from "react-icons/tb";
 import { RiRefreshLine } from "react-icons/ri";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,63 +10,86 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Productmax from "../../components/Productmax";
 import { DataContext } from "../../App";
+import { baseUrl } from "../../services";
 
 function ProductDetail() {
+  const { id } = useParams();
   const { productData } = useContext(DataContext);
-  const [quantity, setQuantity] = useState(2);
+
+  const product = productData?.find((item) => item.id.toString() === id);
+
+  const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("M");
   const [selectedColor, setSelectedColor] = useState("blue");
+  const [selectedImgIndex, setSelectedImgIndex] = useState(0);
 
-  const mainImages = [
-    "/imgs/image 57.svg",
-    "/imgs/Frame 896.svg",
-    "/imgs/Frame 897.svg",
-    "/imgs/Frame 919.svg",
-  ];
+  if (!product) {
+    return (
+      <div style={{ textAlign: "center", padding: "100px", fontSize: "20px" }}>
+        Mahsulot yuklanmoqda yoki topilmadi...
+      </div>
+    );
+  }
 
   return (
     <div className="product-page-container">
       <div className="breadcrumb">
         <span>Account</span> / <span>Gaming</span> /{" "}
-        <span className="active-breadcrumb">Havic HV G-92 Gamepad</span>
+        <span className="active-breadcrumb">{product.title}</span>
       </div>
 
       <div className="product-main-content">
         <div className="image-gallery">
           <div className="thumbnail-list">
-            {mainImages.map((img, index) => (
-              <div key={index} className="thumb-item">
-                <img src={img} alt={`thumb-${index}`} />
+            {product.pictures?.map((img, index) => (
+              <div
+                key={index}
+                className={`thumb-item ${selectedImgIndex === index ? "active" : ""}`}
+                onClick={() => setSelectedImgIndex(index)}
+                style={{
+                  cursor: "pointer",
+                  border:
+                    selectedImgIndex === index
+                      ? "2px solid #DB4444"
+                      : "1px solid #ddd",
+                }}
+              >
+                <img src={`${baseUrl}${img}`} alt={`thumb-${index}`} />
               </div>
             ))}
           </div>
           <div className="main-image">
-            <img src="/imgs/image 63.svg" alt="Main Gamepad" />
+            {product.pictures && (
+              <img
+                src={`${baseUrl}${product.pictures[selectedImgIndex]}`}
+                alt={product.title}
+              />
+            )}
           </div>
         </div>
 
         <div className="product-details-info">
-          <h1 className="product-title1">Havic HV G-92 Gamepad</h1>
+          <h1 className="product-title1">{product.title}</h1>
 
           <div className="rating-row">
             <div className="stars">
-              <IoStar color="#FFAD33" />
-              <IoStar color="#FFAD33" />
-              <IoStar color="#FFAD33" />
-              <IoStar color="#FFAD33" />
+              {[...Array(4)].map((_, i) => (
+                <IoStar key={i} color="#FFAD33" />
+              ))}
               <IoStar color="#CCCCCC" />
             </div>
             <span className="review-count">(150 Reviews)</span>
             <span className="divider">|</span>
-            <span className="stock-status">In Stock</span>
+            <span className="stock-status" style={{ color: "#00FF66" }}>
+              In Stock
+            </span>
           </div>
 
-          <div className="product-price">$192.00</div>
+          <div className="product-price">${product.price}</div>
 
           <p className="product-description">
-            PlayStation 5 Controller Skin High quality vinyl with air channel
-            adhesive for easy bubble free install & mess free removal Pressure
-            sensitive.
+            {product.description ||
+              "PlayStation 5 Controller Skin High quality vinyl..."}
           </p>
 
           <hr className="detail-hr" />
@@ -156,17 +175,21 @@ function ProductDetail() {
             modules={[Navigation]}
             spaceBetween={30}
             slidesPerView={4}
+            navigation
             breakpoints={{
               320: { slidesPerView: 1 },
               640: { slidesPerView: 2 },
               1024: { slidesPerView: 4 },
             }}
           >
-            {productData?.slice(0, 4).map((item) => (
-              <SwiperSlide key={item.id}>
-                <Productmax item={item} />
-              </SwiperSlide>
-            ))}
+            {productData
+              ?.filter((item) => item.id.toString() !== id)
+              .slice(0, 4)
+              .map((item) => (
+                <SwiperSlide key={item.id}>
+                  <Productmax item={item} />
+                </SwiperSlide>
+              ))}
           </Swiper>
         </div>
       </section>
