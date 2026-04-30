@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Navbar.css";
 import {
   IoSearchOutline,
@@ -17,10 +17,24 @@ import { NavLink } from "react-router-dom";
 
 function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="navbar-wrapper">
@@ -68,12 +82,11 @@ function Navbar() {
             </NavLink>
             <NavLink to="/cart">
               <button className="icon-btn">
-              <IoCartOutline size={26} />
-            </button>
+                <IoCartOutline size={26} />
+              </button>
             </NavLink>
-            
 
-            <div className="user-menu-container">
+            <div className="user-menu-container" ref={dropdownRef}>
               <button
                 onClick={toggleDropdown}
                 className={`icon-btn ${isDropdownOpen ? "active-user" : ""}`}
@@ -84,7 +97,7 @@ function Navbar() {
               {isDropdownOpen && (
                 <div className="user-dropdown">
                   <ul>
-                    <NavLink to="/account">
+                    <NavLink to="/account" style={{ textDecoration: "none" }}>
                       <li>
                         <FiUser size={20} /> <span>Manage My Account</span>
                       </li>

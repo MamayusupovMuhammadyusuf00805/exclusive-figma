@@ -35,7 +35,7 @@ function App() {
       <DataContext.Provider value={{ categoryData, productData }}>
         <Navbar />
         <Routes>
-          <Route path="/home" element={<Home />} /> 
+          <Route path="/" element={<Home />} /> 
           <Route path="/sign" element={<Sign />} />
           <Route path="/login" element={<Login />} />
           <Route path="/account" element={<Account />} />
