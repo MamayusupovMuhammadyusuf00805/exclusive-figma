@@ -23,7 +23,9 @@ function Cart() {
   return (
     <div className="cart-container">
       <div className="breadcrumb">
-        <span>Home</span> / <span className="active">Cart</span>
+        <NavLink to="/" navcart>
+            <span>Home</span> / <span className="active">Cart</span>
+        </NavLink>
       </div>
 
       <table className="cart-table">

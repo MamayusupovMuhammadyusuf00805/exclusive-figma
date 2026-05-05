@@ -132,10 +132,13 @@ function Home() {
               <Productmax item={item} />
             </SwiperSlide>
           ))}
-          <div className="view">
-            <button className="view-all-btn">View All Products</button>
-          </div>
         </Swiper>
+
+        <div className="view">
+          <Link to="/all-product">
+            <button className="view-all-btn">View All Products</button>
+          </Link>
+        </div>
       </section>
 
       <section className="category-browse-section">
@@ -157,7 +160,6 @@ function Home() {
         </div>
 
         <div className="category-section">
-
           <Swiper
             modules={[Navigation]}
             spaceBetween={30}

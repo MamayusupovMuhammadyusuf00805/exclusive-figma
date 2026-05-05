@@ -1,4 +1,5 @@
 import React, { useState } from "react"; 
+import { NavLink } from "react-router-dom";
 import "./About.css";
 import { CiTwitter } from "react-icons/ci";
 import { FaInstagram, FaLinkedinIn } from "react-icons/fa";
@@ -35,6 +36,14 @@ function About() {
 
   return (
     <div className="about-container">
+      
+      <div className="breadcrumb">
+        <NavLink className="navcontact" to="/">
+            <span className="text-gray">Home / </span>
+        </NavLink>
+        <span className="text-black">About</span>
+      </div>
+
       <section className="story-section">
         <div className="story-text">
           <h1>Our Story</h1>
@@ -89,20 +98,18 @@ function About() {
       <section className="features-container">
         <div className="feature-item">
           <div className="icon-bg"><GrDeliver /></div> 
-          <h4 style={{ fontWeight: "bold" }}>FREE AND FAST DELIVERY</h4>
-          <p style={{ fontSize: "0.8rem" }}>
-            Free delivery for all orders over $140
-          </p>
+          <h4>FREE AND FAST DELIVERY</h4>
+          <p>Free delivery for all orders over $140</p>
         </div>
         <div className="feature-item">
           <div className="icon-bg"><RiCustomerService2Line /></div>
-          <h4 style={{ fontWeight: "bold" }}>24/7 CUSTOMER SERVICE</h4>
-          <p style={{ fontSize: "0.8rem" }}>Friendly 24/7 customer support</p>
+          <h4>24/7 CUSTOMER SERVICE</h4>
+          <p>Friendly 24/7 customer support</p>
         </div>
         <div className="feature-item">
           <div className="icon-bg"><RiSecurePaymentFill /></div>
-          <h4 style={{ fontWeight: "bold" }}>MONEY BACK GUARANTEE</h4>
-          <p style={{ fontSize: "0.8rem" }}>We return money within 30 days</p>
+          <h4>MONEY BACK GUARANTEE</h4>
+          <p>We return money within 30 days</p>
         </div>
       </section>
     </div>

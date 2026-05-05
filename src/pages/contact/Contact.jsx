@@ -1,10 +1,13 @@
 import React from "react";
 import "./Contact.css";
+import { NavLink } from "react-router-dom";
 function Contact() {
   return (
     <div className="contact-container">
       <div className="breadcrumb">
-        <span className="text-gray">Home / </span>
+        <NavLink className="navcontact" to="/">
+            <span className="text-gray">Home / </span>
+        </NavLink>
         <span className="text-black">Contact</span>
       </div>
 

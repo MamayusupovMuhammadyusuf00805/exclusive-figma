@@ -1,3 +1,21 @@
+.breadcrumb {
+    padding: 1rem 0 0 0;
+    font-size: 14px;
+}
+
+.navcontact {
+    text-decoration: none;
+}
+
+.text-gray {
+    color: #888888;
+}
+
+.text-black {
+    color: #000000;
+    font-weight: 500;
+}
+
 .about-container {
     max-width: 1280px;
     margin: 0 auto;
@@ -129,7 +147,8 @@
     background: #000;
     border: 8px solid #c1c1c1;
 }
-.social-links{
+
+.social-links {
     display: flex;
     align-items: center;
     gap: 18px;

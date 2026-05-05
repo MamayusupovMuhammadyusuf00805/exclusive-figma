@@ -50,7 +50,7 @@ function Account() {
 
   return (
     <div className="account-container">
-
+        
       <main className="profile-card">
         <h2 className="form-title">Edit Your Profile</h2>
         <form className="profile-form" onSubmit={handleSaveChanges}>

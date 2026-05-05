@@ -1,9 +1,9 @@
-import React, { useState } from "react"; // useState qo'shildi
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // react-icons o'rnatilgan bo'lsa
+import React, { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; 
 import "./Login.css";
 
 function Login() {
-  const [showPassword, setShowPassword] = useState(false); // Holatni saqlash
+  const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -30,7 +30,6 @@ function Login() {
               className="login-input"
             />
 
-            {/* Parol qismi o'zgardi */}
             <div className="password-wrapper">
               <input
                 type={showPassword ? "text" : "password"}
