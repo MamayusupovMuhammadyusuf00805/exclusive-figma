@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Productmax.css";
-import { IoHeartOutline, IoEyeOutline, IoStar } from "react-icons/io5";
+import {
+  IoHeartOutline,
+  IoHeart,
+  IoEyeOutline,
+  IoStar,
+  IoTrashOutline,
+} from "react-icons/io5";
 import { baseUrl } from "../services";
 import { useNavigate } from "react-router-dom";
+import { DataContext } from "../App"; 
 
-function Productmax({ item }) {
+function Productmax({ item, onEyeClick, isWishlist }) {
   const navigate = useNavigate();
+  const { wishlist, toggleWishlist } = useContext(DataContext);
+
+  const isLiked = wishlist?.some((wItem) => wItem.id === item?.id);
 
   const goToDetail = () => {
     navigate(`/productdetail/${item?.id}`);
@@ -17,20 +27,29 @@ function Productmax({ item }) {
         <span className="discount-badge">-40%</span>
 
         <div className="card-actions">
-          <button className="action-btn">
-            <IoHeartOutline />
+          <button className="action-btn" onClick={() => toggleWishlist(item)}>
+            {isWishlist ? (
+              <IoTrashOutline size={20} />
+            ) : isLiked ? (
+              <IoHeart color="#DB4444" size={20} />
+            ) : (
+              <IoHeartOutline size={20} />
+            )}
           </button>
-          <button className="action-btn" onClick={goToDetail}>
-            <IoEyeOutline />
-          </button>
+
+          {!isWishlist && (
+            <button className="action-btn" onClick={onEyeClick}>
+              <IoEyeOutline size={20} />
+            </button>
+          )}
         </div>
 
         <img
           onClick={goToDetail}
-          style={{ cursor: "pointer" }}
           className="product-img"
           src={`${baseUrl}${item?.pictures?.[0]}`}
           alt={item?.title}
+          style={{ cursor: "pointer" }}
         />
 
         <button className="add-to-cart" onClick={goToDetail}>

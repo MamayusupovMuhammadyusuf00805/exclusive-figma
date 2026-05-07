@@ -20,7 +20,7 @@ export const registerFunc = async (email, password, name) => {
       password: password,
     });
 
-    const response = await fetch(`${baseUrl}/user/register/`, {
+    const response = await fetch(`${baseUrl}user/register/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: raw,
@@ -40,8 +40,8 @@ export const registerFunc = async (email, password, name) => {
 
 export const updateProfileFunc = async (token, profileData) => {
   try {
-    const response = await fetch(`${baseUrl}/user/update-profile/`, {
-      method: "PATCH", 
+    const response = await fetch(`${baseUrl}user/update-profile/`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -53,6 +53,31 @@ export const updateProfileFunc = async (token, profileData) => {
 
     if (!response.ok) {
       return { error: true, message: result.message || "Yangilashda xatolik" };
+    }
+
+    return result;
+  } catch (error) {
+    return { error: true, message: "Server bilan aloqa yo'q" };
+  }
+};
+
+export const loginFunc = async (email, password) => {
+  try {
+    const raw = JSON.stringify({
+      email_or_phone: email,
+      password: password,
+    });
+
+    const response = await fetch(`${baseUrl}user/token/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: raw,
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      return { error: true, message: result.detail || "Login yoki parol xato" };
     }
 
     return result;

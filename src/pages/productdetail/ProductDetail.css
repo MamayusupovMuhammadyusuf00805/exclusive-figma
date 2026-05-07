@@ -2,7 +2,6 @@
     max-width: 1170px;
     margin: 40px auto;
     padding: 0 20px;
-    font-family: 'Inter', sans-serif;
 }
 
 .breadcrumb {
@@ -35,7 +34,7 @@
 }
 
 .thumb-item {
-    width: 170px;
+    width: 130px;
     background-color: #F5F5F5;
     display: flex;
     align-items: center;

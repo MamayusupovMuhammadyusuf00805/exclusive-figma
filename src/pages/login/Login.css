@@ -1,23 +1,24 @@
 .login-container {
     display: flex;
-    min-height: 80vh;
+    min-height: 100vh;
     align-items: center;
+    background-color: #ffffff;
     font-family: 'Poppins', sans-serif;
-    margin-top: 60px;
 }
 
 .login-image-side {
     flex: 1.2;
     background-color: #CBE4E8;
-    height: 780px;
+    height: 100vh;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     overflow: hidden;
 }
 
 .login-image-side img {
     max-width: 90%;
+    height: auto;
     object-fit: contain;
 }
 
@@ -30,38 +31,90 @@
 
 .login-form-box {
     width: 100%;
-    max-width: 370px;
+    max-width: 400px;
+}
+
+.login-form-header {
+    margin-bottom: 35px;
 }
 
 .login-title {
     font-size: 36px;
-    font-weight: 500;
-    margin-bottom: 15px;
-    letter-spacing: 1px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #1e293b;
+    letter-spacing: -0.5px;
 }
 
 .login-subtitle {
-    font-size: 16px;
-    margin-bottom: 40px;
+    font-size: 15px;
+    color: #64748b;
 }
 
 .auth-login-form {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    color: #94a3b8;
+    font-size: 20px;
+    transition: color 0.3s ease;
+    z-index: 10;
 }
 
 .login-input {
-    border: none;
-    border-bottom: 1px solid #7D8184;
-    font-size: 16px;
+    width: 100%;
+    padding: 16px 16px 16px 48px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 15px;
+    color: #1e293b;
+    background-color: #f8fafc;
     outline: none;
-    opacity: 0.7;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.login-input::placeholder {
+    color: #94a3b8;
 }
 
 .login-input:focus {
-    border-bottom-color: #000;
-    opacity: 1;
+    border-color: #DB4444;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(219, 68, 68, 0.1);
+}
+
+.input-group:focus-within .input-icon {
+    color: #DB4444;
+}
+
+.password-toggle-icon {
+    position: absolute;
+    right: 16px;
+    color: #94a3b8;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+    z-index: 10;
+}
+
+.password-toggle-icon:hover {
+    color: #DB4444;
 }
 
 .login-actions {
@@ -75,40 +128,69 @@
     background-color: #DB4444;
     color: white;
     border: none;
-    padding: 16px 48px;
-    border-radius: 4px;
+    padding: 16px 40px;
+    border-radius: 12px;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.login-btn:hover {
+    background-color: #c93b3b;
+}
+
+.login-btn:active {
+    transform: scale(0.98);
 }
 
 .forgot-password {
     color: #DB4444;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: opacity 0.3s;
 }
 
-.password-wrapper {
-    position: relative;
-    width: 100%;
-    display: flex;
-    align-items: center;
+.forgot-password:hover {
+    opacity: 0.8;
+    text-decoration: underline;
 }
 
-.password-input {
-    width: 100%;
-    padding-right: 40px;
+
+.custom-toast-container {
+    border-radius: 12px !important;
+    padding: 16px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #f1f5f9 !important;
+    background-color: #ffffff !important;
+    margin-top: 20px !important;
 }
 
-.password-toggle-icon {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #7D8184;
+.Toastify__toast-body {
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #1e293b !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
 }
 
-.password-toggle-icon:hover {
-    color: #000;
+.Toastify__close-button {
+    color: #94a3b8 !important;
+    opacity: 0.7 !important;
+    transition: all 0.2s ease !important;
+    align-self: center !important;
+}
+
+.Toastify__close-button:hover {
+    color: #1e293b !important;
+    opacity: 1 !important;
+}
+
+.custom-toast-success {
+    border-left: 4px solid #10B981 !important;
+}
+
+.custom-toast-error {
+    border-left: 4px solid #DB4444 !important;
 }

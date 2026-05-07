@@ -8,9 +8,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 function Washlist() {
-  const { productData } = useContext(DataContext);
+  const { productData, wishlist } = useContext(DataContext);
 
-  const wishlistCount = 4;
+  const wishlistCount = wishlist?.length || 0;
 
   return (
     <div className="wishlist-container">
@@ -20,11 +20,15 @@ function Washlist() {
       </header>
 
       <div className="wishlist-grid">
-        {productData?.slice(0, 4).map((item) => (
-          <div key={item.id} className="wishlist-item-wrapper">
-            <Productmax item={item} isWishlist={true} />
-          </div>
-        ))}
+        {wishlist?.length > 0 ? (
+          wishlist.map((item) => (
+            <div key={item.id} className="wishlist-item-wrapper">
+              <Productmax item={item} isWishlist={true} />
+            </div>
+          ))
+        ) : (
+          <p>Sizning Wishlist'ingiz bo'sh.</p>
+        )}
       </div>
 
       <section className="just-for-you-section">

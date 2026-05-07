@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./Home.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
+import Marquee from "react-fast-marquee";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -17,27 +18,181 @@ import {
   IoPhonePortraitOutline,
   IoDesktopOutline,
   IoCameraOutline,
+  IoCloseOutline,
 } from "react-icons/io5";
 
 import { FaApple } from "react-icons/fa";
 import Productmax from "../../components/Productmax";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { DataContext } from "../../App";
+import { baseUrl } from "../../services/index";
 
 function Home() {
-  const { categoryData } = useContext(DataContext);
-  const { productData } = useContext(DataContext);
+  const navigate = useNavigate();
+  const { categoryData, productData } = useContext(DataContext);
+  const [showAllBestSelling, setShowAllBestSelling] = useState(false);
+
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [modalQuantity, setModalQuantity] = useState(1);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+
+  const openModal = (product) => {
+    setSelectedProduct(product);
+    setModalQuantity(1);
+    setSelectedColor(null);
+    setSelectedSize(null);
+  };
+
+  const closeModal = () => {
+    setSelectedProduct(null);
+  };
+
+  const handleQuantity = (type) => {
+    if (type === "dec" && modalQuantity > 1) {
+      setModalQuantity((prev) => prev - 1);
+    } else if (type === "inc") {
+      setModalQuantity((prev) => prev + 1);
+    }
+  };
+
+  const goDetailFromModal = () => {
+    navigate(`/productdetail/${selectedProduct.id}`);
+    closeModal();
+  };
+
+  const [timeLeft, setTimeLeft] = useState({
+    days: "00",
+    hours: "00",
+    minutes: "00",
+    seconds: "00",
+  });
+
+  useEffect(() => {
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 3);
+
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference <= 0) {
+        clearInterval(timer);
+      } else {
+        const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const h = Math.floor(
+          (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+        );
+        const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+        setTimeLeft({
+          days: d < 10 ? `0${d}` : d,
+          hours: h < 10 ? `0${h}` : h,
+          minutes: m < 10 ? `0${m}` : m,
+          seconds: s < 10 ? `0${s}` : s,
+        });
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="home-page-wrapper">
+      {selectedProduct && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close-btn" onClick={closeModal}>
+              <IoCloseOutline size={24} />
+            </button>
+
+            <div className="modal-left">
+              <img
+                src={`${baseUrl}${selectedProduct?.pictures?.[0]}`}
+                alt={selectedProduct?.title}
+                className="modal-image"
+              />
+              <button className="modal-show-more" onClick={goDetailFromModal}>
+                Show More →
+              </button>
+            </div>
+
+            <div className="modal-right">
+              <h2 className="modal-title">
+                {selectedProduct?.title?.length > 30
+                  ? selectedProduct.title.slice(0, 30) + "..."
+                  : selectedProduct?.title}
+              </h2>
+
+              <div className="modal-option-group">
+                <span className="modal-label">Color:</span>
+                <div className="color-options">
+                  <div
+                    className={`color-circle black ${selectedColor === "black" ? "active" : ""}`}
+                    onClick={() => setSelectedColor("black")}
+                  ></div>
+                  <div
+                    className={`color-circle gray ${selectedColor === "gray" ? "active" : ""}`}
+                    onClick={() => setSelectedColor("gray")}
+                  ></div>
+                  <div
+                    className={`color-circle green ${selectedColor === "green" ? "active" : ""}`}
+                    onClick={() => setSelectedColor("green")}
+                  ></div>
+                  <div
+                    className={`color-circle yellow ${selectedColor === "yellow" ? "active" : ""}`}
+                    onClick={() => setSelectedColor("yellow")}
+                  ></div>
+                </div>
+              </div>
+
+              <div className="modal-option-group">
+                <span className="modal-label">Size:</span>
+                <div className="size-options">
+                  {["XS", "S", "M", "L", "XL"].map((size) => (
+                    <button
+                      key={size}
+                      className={`size-btn ${selectedSize === size ? "active" : ""}`}
+                      onClick={() => setSelectedSize(size)}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="modal-option-group">
+                <span className="modal-label">Quantity:</span>
+                <div className="quantity-control">
+                  <button onClick={() => handleQuantity("dec")}>-</button>
+                  <span>{modalQuantity}</span>
+                  <button onClick={() => handleQuantity("inc")}>+</button>
+                </div>
+              </div>
+
+              <div className="modal-price">
+                <span className="modal-label">Price:</span>
+                <span className="price-value">
+                  ${selectedProduct?.price * modalQuantity}
+                </span>
+              </div>
+
+              <button className="modal-add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="home-top-container">
         <aside className="sidebar">
           <ul className="category-list">
             {categoryData?.map((item) => {
               return (
-                <div className="row">
+                <div className="row" key={item.id}>
                   <img src={item?.image} alt="" />
                   <li className="category-item">
-                    <Link to="/womans-fashion">{item.title}</Link>
+                    <Link to={`/category/${item.id}`}>{item.title}</Link>
                     <IoChevronForwardOutline className="chevron-icon" />
                   </li>
                 </div>
@@ -73,26 +228,6 @@ function Home() {
                 </div>
               </div>
             </SwiperSlide>
-
-            <SwiperSlide>
-              <div className="slide-content">
-                <div className="slide-text">
-                  <div className="brand-info">
-                    <FaApple size={40} />
-                    <span>iPhone 14 Series</span>
-                  </div>
-                  <h1 className="hero-title">
-                    Up to 10% <br /> off Voucher
-                  </h1>
-                  <a href="#" className="shop-now-link">
-                    Shop Now <IoArrowForwardOutline size={20} />
-                  </a>
-                </div>
-                <div className="slide-image">
-                  <img src="/imgs/iphone.svg" alt="iPhone 14" />
-                </div>
-              </div>
-            </SwiperSlide>
           </Swiper>
         </main>
       </div>
@@ -104,13 +239,38 @@ function Home() {
         </div>
 
         <div className="section-header">
-          <h2 className="section-title">Flash Sales</h2>
+          <div className="title-timer-wrapper">
+            <h2 className="section-title">Flash Sales</h2>
+
+            <div className="countdown-container">
+              <div className="timer-unit">
+                <span className="unit-label">Days</span>
+                <span className="unit-value">{timeLeft.days}</span>
+              </div>
+              <span className="timer-separator">:</span>
+              <div className="timer-unit">
+                <span className="unit-label">Hours</span>
+                <span className="unit-value">{timeLeft.hours}</span>
+              </div>
+              <span className="timer-separator">:</span>
+              <div className="timer-unit">
+                <span className="unit-label">Minutes</span>
+                <span className="unit-value">{timeLeft.minutes}</span>
+              </div>
+              <span className="timer-separator">:</span>
+              <div className="timer-unit">
+                <span className="unit-label">Seconds</span>
+                <span className="unit-value">{timeLeft.seconds}</span>
+              </div>
+            </div>
+          </div>
+
           <div className="navigation-arrows">
             <button className="arrow-btn prev-flash">
-              <IoArrowBackOutline />
+              <IoArrowBackOutline size={24} />
             </button>
             <button className="arrow-btn next-flash">
-              <IoArrowForwardOutline />
+              <IoArrowForwardOutline size={24} />
             </button>
           </div>
         </div>
@@ -129,16 +289,10 @@ function Home() {
         >
           {productData?.map((item) => (
             <SwiperSlide key={item.id}>
-              <Productmax item={item} />
+              <Productmax item={item} onEyeClick={() => openModal(item)} />
             </SwiperSlide>
           ))}
         </Swiper>
-
-        <div className="view">
-          <Link to="/all-product">
-            <button className="view-all-btn">View All Products</button>
-          </Link>
-        </div>
       </section>
 
       <section className="category-browse-section">
@@ -149,40 +303,29 @@ function Home() {
 
         <div className="section-header">
           <h2 className="section-title">Browse By Category</h2>
-          <div className="navigation-arrows">
-            <button className="arrow-btn prev-cat">
-              <IoArrowBackOutline />
-            </button>
-            <button className="arrow-btn next-cat">
-              <IoArrowForwardOutline />
-            </button>
-          </div>
         </div>
 
-        <div className="category-section">
-          <Swiper
-            modules={[Navigation]}
-            spaceBetween={30}
-            slidesPerView={6}
-            navigation={{ prevEl: ".prev-cat", nextEl: ".next-cat" }}
-            breakpoints={{
-              320: { slidesPerView: 2 },
-              768: { slidesPerView: 4 },
-              1024: { slidesPerView: 6 },
-            }}
-            className="category-swiper"
+        <div className="category-section-marquee">
+          <Marquee
+            speed={150}
+            gradient={false}
+            pauseOnHover={true}
+            direction="left"
           >
             {categoryData?.map((item) => (
-              <SwiperSlide key={item.id}>
-                <Link to={`/category/${item.id}`} className="category-card">
-                  <div className="cat-icon">
-                    <img src={item.image} alt={item.title} />
-                  </div>
-                  <span>{item.title}</span>
-                </Link>
-              </SwiperSlide>
+              <Link
+                to={`/category/${item.id}`}
+                className="category-card"
+                key={item.id}
+                style={{ marginRight: "30px", minWidth: "170px" }}
+              >
+                <div className="cat-icon">
+                  <img src={item.image} alt={item.title} />
+                </div>
+                <span>{item.title}</span>
+              </Link>
             ))}
-          </Swiper>
+          </Marquee>
         </div>
       </section>
 
@@ -194,14 +337,25 @@ function Home() {
 
         <div className="section-header">
           <h2 className="section-title">Best Selling Products</h2>
-          <button className="view-all-red-btn">View All</button>
+          <button
+            className="view-all-red-btn"
+            onClick={() => setShowAllBestSelling(!showAllBestSelling)}
+          >
+            {showAllBestSelling ? "Show Less" : "View All"}
+          </button>
         </div>
 
         <div className="best-selling-grid">
           {productData && productData.length > 0 ? (
             productData
-              .slice(0, 4)
-              .map((item) => <Productmax key={item.id} item={item} />)
+              .slice(0, showAllBestSelling ? productData.length : 4)
+              .map((item) => (
+                <Productmax
+                  key={item.id}
+                  item={item}
+                  onEyeClick={() => openModal(item)}
+                />
+              ))
           ) : (
             <div className="loading">Yuklanmoqda...</div>
           )}
@@ -212,37 +366,34 @@ function Home() {
         <div className="banner-content">
           <span className="category-text">Categories</span>
           <h1 className="banner-title">
-            Enhance Your
-            <br />
-            Music Experience
+            Enhance Your <br /> Music Experience
           </h1>
 
           <div className="timer-wrapper">
             <div className="time-circle">
-              <span className="time-number">23</span>
-              <span className="time-label">Hours</span>
-            </div>
-            <div className="time-circle">
-              <span className="time-number">05</span>
+              <span className="time-number">{timeLeft.days}</span>
               <span className="time-label">Days</span>
             </div>
             <div className="time-circle">
-              <span className="time-number">59</span>
+              <span className="time-number">{timeLeft.hours}</span>
+              <span className="time-label">Hours</span>
+            </div>
+            <div className="time-circle">
+              <span className="time-number">{timeLeft.minutes}</span>
               <span className="time-label">Minutes</span>
             </div>
             <div className="time-circle">
-              <span className="time-number">35</span>
+              <span className="time-number">{timeLeft.seconds}</span>
               <span className="time-label">Seconds</span>
             </div>
           </div>
-
           <button className="buy-button">Buy Now!</button>
         </div>
-
         <div className="banner-image">
-          <img src="/imgs/kalonka.svg" alt="JBL Boombox" />
+          <img src="/imgs/kalonka.svg" alt="Music" />
         </div>
       </div>
+
       <section className="our-products-section">
         <div className="container">
           <div className="section-header-wrapper">
@@ -263,7 +414,13 @@ function Home() {
             {productData && productData.length > 0 ? (
               productData
                 .slice(0, 8)
-                .map((item) => <Productmax key={item.id} item={item} />)
+                .map((item) => (
+                  <Productmax
+                    key={item.id}
+                    item={item}
+                    onEyeClick={() => openModal(item)}
+                  />
+                ))
             ) : (
               <p>Yuklanmoqda...</p>
             )}

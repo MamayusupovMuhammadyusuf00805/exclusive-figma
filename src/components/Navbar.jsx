@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import "./Navbar.css";
 import {
   IoSearchOutline,
@@ -13,25 +13,44 @@ import {
   FiStar,
   FiLogOut,
 } from "react-icons/fi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { DataContext } from "../App";
 
 function Navbar() {
+  const { wishlist, cartData } = useContext(DataContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("isAuth");
+    setIsAuth(false);
+    setIsDropdownOpen(false);
+    navigate("/login");
+  };
+
   useEffect(() => {
+    setIsAuth(localStorage.getItem("isAuth") === "true");
+
+    const handleAuthChange = () => {
+      setIsAuth(localStorage.getItem("isAuth") === "true");
+    };
+    window.addEventListener("authChange", handleAuthChange);
+
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
+      window.removeEventListener("authChange", handleAuthChange);
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
@@ -51,7 +70,13 @@ function Navbar() {
       </div>
 
       <nav className="main-nav">
-        <div className="nav-logo">Exclusive</div>
+        <div
+          className="nav-logo"
+          onClick={() => navigate("/")}
+          style={{ cursor: "pointer" }}
+        >
+          Exclusive
+        </div>
 
         <ul className="nav-menu">
           <li>
@@ -63,9 +88,11 @@ function Navbar() {
           <li>
             <NavLink to="/about">About</NavLink>
           </li>
-          <li>
-            <NavLink to="/sign">Sign Up</NavLink>
-          </li>
+          {!isAuth && (
+            <li>
+              <NavLink to="/sign">Sign Up</NavLink>
+            </li>
+          )}
         </ul>
 
         <div className="nav-actions">
@@ -75,49 +102,60 @@ function Navbar() {
           </div>
 
           <div className="icon-group">
-            <NavLink to="/washlist">
-              <button className="icon-btn">
-                <IoHeartOutline size={26} />
-              </button>
-            </NavLink>
-            <NavLink to="/cart">
-              <button className="icon-btn">
-                <IoCartOutline size={26} />
-              </button>
-            </NavLink>
-
-            <div className="user-menu-container" ref={dropdownRef}>
-              <button
-                onClick={toggleDropdown}
-                className={`icon-btn ${isDropdownOpen ? "active-user" : ""}`}
-              >
-                <FiUser size={26} />
-              </button>
-
-              {isDropdownOpen && (
-                <div className="user-dropdown">
-                  <ul>
-                    <NavLink to="/account" style={{ textDecoration: "none" }}>
-                      <li>
-                        <FiUser size={20} /> <span>Manage My Account</span>
-                      </li>
-                    </NavLink>
-                    <li>
-                      <FiShoppingBag size={20} /> <span>My Order</span>
-                    </li>
-                    <li>
-                      <FiXCircle size={20} /> <span>My Cancellations</span>
-                    </li>
-                    <li>
-                      <FiStar size={20} /> <span>My Reviews</span>
-                    </li>
-                    <li>
-                      <FiLogOut size={20} /> <span>Logout</span>
-                    </li>
-                  </ul>
-                </div>
+            <NavLink to="/washlist" className="nav-icon-container">
+              <IoHeartOutline size={28} />
+              {wishlist?.length > 0 && (
+                <span className="icon-badge">{wishlist.length}</span>
               )}
-            </div>
+            </NavLink>
+
+            <NavLink to="/cart" className="nav-icon-container">
+              <IoCartOutline size={28} />
+              {cartData?.length > 0 && (
+                <span className="icon-badge">{cartData.length}</span>
+              )}
+            </NavLink>
+
+            {isAuth && (
+              <div className="user-menu-container" ref={dropdownRef}>
+                <button
+                  onClick={toggleDropdown}
+                  className={`icon-btn ${isDropdownOpen ? "active-user" : ""}`}
+                >
+                  <FiUser size={26} />
+                </button>
+
+                {isDropdownOpen && (
+                  <div
+                    className={`user-dropdown ${isDropdownOpen ? "active" : ""}`}
+                  >
+                    <ul>
+                      <NavLink
+                        to="/account"
+                        style={{ textDecoration: "none" }}
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        <li>
+                          <FiUser size={20} /> <span>Manage My Account</span>
+                        </li>
+                      </NavLink>
+                      <li onClick={() => setIsDropdownOpen(false)}>
+                        <FiShoppingBag size={20} /> <span>My Order</span>
+                      </li>
+                      <li onClick={() => setIsDropdownOpen(false)}>
+                        <FiXCircle size={20} /> <span>My Cancellations</span>
+                      </li>
+                      <li onClick={() => setIsDropdownOpen(false)}>
+                        <FiStar size={20} /> <span>My Reviews</span>
+                      </li>
+                      <li onClick={handleLogout}>
+                        <FiLogOut size={20} /> <span>Logout</span>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </nav>

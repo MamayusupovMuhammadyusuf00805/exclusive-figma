@@ -14,7 +14,7 @@
 
     function ProductDetail() {
     window.scrollTo({
-        top: 200,
+        top: 100,
         behavior: "smooth",
     });
     const { id } = useParams();

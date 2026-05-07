@@ -14,12 +14,17 @@ import Cart from "./pages/cart/Cart";
 import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
 import ProductDetail from "./pages/productdetail/ProductDetail";
+import Categoryfilter from "./pages/categoryfilter/Categoryfilter";
 
 export const DataContext = createContext();
 
 function App() {
   const [categoryData, setCategoryData] = useState([]);
   const [productData, setProductData] = useState([]);
+
+  const [wishlist, setWishlist] = useState(
+    JSON.parse(localStorage.getItem("wishlist")) || [],
+  );
 
   useEffect(() => {
     getCategory()?.then((item) => {
@@ -30,12 +35,34 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }, [wishlist]);
+
+  const toggleWishlist = (product) => {
+    setWishlist((prev) => {
+      const isExist = prev.find((item) => item.id === product.id);
+      if (isExist) {
+        return prev.filter((item) => item.id !== product.id);
+      } else {
+        return [...prev, product];
+      }
+    });
+  };
+
   return (
     <BrowserRouter>
-      <DataContext.Provider value={{ categoryData, productData }}>
+      <DataContext.Provider
+        value={{
+          categoryData,
+          productData,
+          wishlist,
+          toggleWishlist,
+        }}
+      >
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} /> 
+          <Route path="/" element={<Home />} />
           <Route path="/sign" element={<Sign />} />
           <Route path="/login" element={<Login />} />
           <Route path="/account" element={<Account />} />
@@ -45,6 +72,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
+          <Route path="/category/:id" element={<Categoryfilter />} />
         </Routes>
         <Footer />
       </DataContext.Provider>

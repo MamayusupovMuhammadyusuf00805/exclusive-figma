@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import "./Sign.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { registerFunc } from "../../services/index";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FiUser, FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+import { FcGoogle } from "react-icons/fc";
 
 function Sign() {
   const navigate = useNavigate();
@@ -45,33 +46,44 @@ function Sign() {
 
       <div className="signup-form-side">
         <div className="form-box">
-          <h2 className="form-title">Create an account</h2>
-          <p className="form-subtitle">Enter your details below</p>
+          <div className="form-header">
+            <h2 className="form-title1">Create an account</h2>
+            <p className="form-subtitle">
+              Enter your details below to get started
+            </p>
+          </div>
 
           <form className="auth-form" onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Name"
-              className="auth-input"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Email or Phone Number"
-              className="auth-input"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+            <div className="input-group">
+              <FiUser className="input-icon" />
+              <input
+                type="text"
+                placeholder="Full Name"
+                className="auth-input"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
 
-            <div className="password-wrapper" style={{ position: "relative" }}>
+            <div className="input-group">
+              <FiMail className="input-icon" />
+              <input
+                type="text"
+                placeholder="Email or Phone Number"
+                className="auth-input"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <FiLock className="input-icon" />
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 className="auth-input"
-                style={{ width: "100%" }}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -79,14 +91,8 @@ function Sign() {
               <span
                 className="password-toggle-icon"
                 onClick={() => setShowPassword(!showPassword)}
-                style={{
-                  position: "absolute",
-                  right: "0",
-                  bottom: "10px",
-                  cursor: "pointer",
-                }}
               >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {showPassword ? <FiEyeOff /> : <FiEye />}
               </span>
             </div>
 
@@ -94,17 +100,18 @@ function Sign() {
               {loading ? "Yuklanmoqda..." : "Create Account"}
             </button>
 
+            <div className="divider">
+              <span>OR</span>
+            </div>
+
             <button type="button" className="google-btn">
-              <img
-                src="https://img.icons8.com/color/20/000000/google-logo.png"
-                alt="Google"
-              />
+              <FcGoogle className="google-icon" />
               Sign up with Google
             </button>
           </form>
 
           <div className="form-footer">
-            <span>Already have account?</span>
+            <span>Already have an account?</span>
             <NavLink to="/login" className="login-link">
               Log in
             </NavLink>
