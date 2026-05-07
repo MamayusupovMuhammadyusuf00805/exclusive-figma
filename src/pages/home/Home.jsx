@@ -229,6 +229,33 @@ function Home() {
               </div>
             </SwiperSlide>
           </Swiper>
+          <Swiper
+            modules={[Pagination, Autoplay]}
+            pagination={{ clickable: true }}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            loop={true}
+            className="hero-swiper"
+          >
+            <SwiperSlide>
+              <div className="slide-content">
+                <div className="slide-text">
+                  <div className="brand-info">
+                    <FaApple size={40} />
+                    <span>iPhone 14 Series</span>
+                  </div>
+                  <h1 className="hero-title">
+                    Up to 10% <br /> off Voucher
+                  </h1>
+                  <a href="#" className="shop-now-link">
+                    Shop Now <IoArrowForwardOutline size={20} />
+                  </a>
+                </div>
+                <div className="slide-image">
+                  <img src="/imgs/iphone.svg" alt="iPhone 14" />
+                </div>
+              </div>
+            </SwiperSlide>
+          </Swiper>
         </main>
       </div>
 
