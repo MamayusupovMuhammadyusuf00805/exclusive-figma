@@ -228,14 +228,6 @@ function Home() {
                 </div>
               </div>
             </SwiperSlide>
-          </Swiper>
-          <Swiper
-            modules={[Pagination, Autoplay]}
-            pagination={{ clickable: true }}
-            autoplay={{ delay: 3000, disableOnInteraction: false }}
-            loop={true}
-            className="hero-swiper"
-          >
             <SwiperSlide>
               <div className="slide-content">
                 <div className="slide-text">
