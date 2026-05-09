@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./About.css";
 import { CiTwitter } from "react-icons/ci";
@@ -36,10 +36,9 @@ function About() {
 
   return (
     <div className="about-container">
-      
       <div className="breadcrumb">
         <NavLink className="navcontact" to="/">
-            <span className="text-gray">Home / </span>
+          <span className="text-gray">Home / </span>
         </NavLink>
         <span className="text-black">About</span>
       </div>
@@ -61,7 +60,7 @@ function About() {
           </p>
         </div>
         <div className="story-image">
-          <img src="/imgs/Side Image.svg" alt="Shopping" />
+          <img src="/imgs/Side Image.svg" alt="Shopping at Exclusive" />
         </div>
       </section>
 
@@ -73,7 +72,9 @@ function About() {
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            <div className="icon-bg">{stat.icon}</div>
+            <div className="icon-bg">
+              <span>{stat.icon}</span>
+            </div>
             <h2>{stat.value}</h2>
             <p>{stat.label}</p>
           </div>
@@ -97,17 +98,23 @@ function About() {
 
       <section className="features-container">
         <div className="feature-item">
-          <div className="icon-bg"><GrDeliver /></div> 
+          <div className="icon-bg">
+            <GrDeliver />
+          </div>
           <h4>FREE AND FAST DELIVERY</h4>
           <p>Free delivery for all orders over $140</p>
         </div>
         <div className="feature-item">
-          <div className="icon-bg"><RiCustomerService2Line /></div>
+          <div className="icon-bg">
+            <RiCustomerService2Line />
+          </div>
           <h4>24/7 CUSTOMER SERVICE</h4>
           <p>Friendly 24/7 customer support</p>
         </div>
         <div className="feature-item">
-          <div className="icon-bg"><RiSecurePaymentFill /></div>
+          <div className="icon-bg">
+            <RiSecurePaymentFill />
+          </div>
           <h4>MONEY BACK GUARANTEE</h4>
           <p>We return money within 30 days</p>
         </div>

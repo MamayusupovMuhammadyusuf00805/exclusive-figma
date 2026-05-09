@@ -222,7 +222,6 @@ function Account() {
               <div className="password-section">
                 <label>Password Changes</label>
                 <div className="password-inputs">
-                  {/* Current Password */}
                   <div className="password-input-group">
                     <input
                       type={showCurrentPassword ? "text" : "password"}

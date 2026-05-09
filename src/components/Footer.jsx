@@ -6,30 +6,35 @@ import {
   FaLinkedinIn,
   FaTwitter,
 } from "react-icons/fa";
+import { IoSendOutline } from "react-icons/io5";
 
 function Footer() {
   return (
     <footer className="footer">
       <div className="footer-container">
+
+        {/* ===== COLUMN 1: SUBSCRIBE ===== */}
         <div className="footer-column">
           <h3 className="footer-logo">Exclusive</h3>
           <h4>Subscribe</h4>
-          <p>Get 10% off your first order</p>
+          <p className="subscribe-sub">Get 10% off your first order</p>
           <div className="subscribe-box">
             <input type="email" placeholder="Enter your email" />
-            <button className="send-btn">➤</button>
+            <button className="send-btn" aria-label="Subscribe">
+              <IoSendOutline size={17} />
+            </button>
           </div>
         </div>
 
+        {/* ===== COLUMN 2: SUPPORT ===== */}
         <div className="footer-column">
           <h4>Support</h4>
-          <p>
-            111 Bijoy sarani, Dhaka, <br /> DH 1515, Bangladesh.
-          </p>
+          <p>111 Bijoy sarani, Dhaka,<br />DH 1515, Bangladesh.</p>
           <p>exclusive@gmail.com</p>
           <p>+88015-88888-9999</p>
         </div>
 
+        {/* ===== COLUMN 3: ACCOUNT ===== */}
         <div className="footer-column">
           <h4>Account</h4>
           <ul>
@@ -41,6 +46,7 @@ function Footer() {
           </ul>
         </div>
 
+        {/* ===== COLUMN 4: QUICK LINK ===== */}
         <div className="footer-column">
           <h4>Quick Link</h4>
           <ul>
@@ -51,46 +57,51 @@ function Footer() {
           </ul>
         </div>
 
+        {/* ===== COLUMN 5: DOWNLOAD APP ===== */}
         <div className="footer-column">
           <h4>Download App</h4>
           <p className="small-text">Save $3 with App New User Only</p>
+
           <div className="download-wrapper">
             <div className="qr-code">
               <img
                 src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=Exclusive"
-                alt="QR"
+                alt="QR Code"
               />
             </div>
             <div className="app-buttons">
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                alt="Google Play"
+                alt="Get it on Google Play"
               />
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
-                alt="App Store"
+                alt="Download on the App Store"
               />
             </div>
           </div>
+
           <div className="social-icons">
-            <span>
+            <button className="social-icon-btn facebook" aria-label="Facebook">
               <FaFacebookF />
-            </span>
-            <span>
+            </button>
+            <button className="social-icon-btn twitter" aria-label="Twitter">
               <FaTwitter />
-            </span>
-            <span>
+            </button>
+            <button className="social-icon-btn instagram" aria-label="Instagram">
               <FaInstagram />
-            </span>
-            <span>
+            </button>
+            <button className="social-icon-btn linkedin" aria-label="LinkedIn">
               <FaLinkedinIn />
-            </span>
+            </button>
           </div>
         </div>
+
       </div>
 
+      {/* ===== FOOTER BOTTOM ===== */}
       <div className="footer-bottom">
-        <p>&copy; Copyright Rimel 2022. All right reserved</p>
+        <p>© {new Date().getFullYear()} Copyright Exclusive. All rights reserved</p>
       </div>
     </footer>
   );

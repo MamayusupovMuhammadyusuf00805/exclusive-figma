@@ -39,8 +39,8 @@ function Categoryfilter() {
   const openModal = (product) => {
     setSelectedProduct(product);
     setModalQuantity(1);
-    setSelectedColor(null);
-    setSelectedSize(null);
+    setSelectedColor("black");
+    setSelectedSize("M");
   };
 
   const closeModal = () => setSelectedProduct(null);
@@ -64,6 +64,7 @@ function Categoryfilter() {
             <button className="modal-close-btn" onClick={closeModal}>
               <IoCloseOutline size={24} />
             </button>
+
             <div className="modal-left">
               <img
                 src={`${baseUrl}${selectedProduct?.pictures?.[0]}`}
@@ -74,8 +75,10 @@ function Categoryfilter() {
                 Show More →
               </button>
             </div>
+
             <div className="modal-right">
               <h2 className="modal-title">{selectedProduct?.title}</h2>
+
               <div className="modal-option-group">
                 <span className="modal-label">Color:</span>
                 <div className="color-options">
@@ -88,6 +91,7 @@ function Categoryfilter() {
                   ))}
                 </div>
               </div>
+
               <div className="modal-option-group">
                 <span className="modal-label">Size:</span>
                 <div className="size-options">
@@ -102,6 +106,7 @@ function Categoryfilter() {
                   ))}
                 </div>
               </div>
+
               <div className="modal-option-group">
                 <span className="modal-label">Quantity:</span>
                 <div className="quantity-control">
@@ -110,12 +115,14 @@ function Categoryfilter() {
                   <button onClick={() => handleQuantity("inc")}>+</button>
                 </div>
               </div>
+
               <div className="modal-price">
                 <span className="modal-label">Price:</span>
                 <span className="price-value">
                   ${selectedProduct?.price * modalQuantity}
                 </span>
               </div>
+
               <button className="modal-add-to-cart">Add to Cart</button>
             </div>
           </div>
@@ -123,12 +130,12 @@ function Categoryfilter() {
       )}
 
       <div className="breadcrumb">
-        <Link to="/">Home</Link> / <span>{categoryName || "Kategoriya"}</span>
+        <Link to="/">Home</Link> / <span>{categoryName || "Category"}</span>
       </div>
 
       <div className="category-header">
         <div className="red-box"></div>
-        <h2>{categoryName || "Mahsulotlar"}</h2>
+        <h2>{categoryName || "Products"}</h2>
       </div>
 
       {filteredProducts.length > 0 ? (

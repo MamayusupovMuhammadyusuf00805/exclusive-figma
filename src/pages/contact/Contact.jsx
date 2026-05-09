@@ -1,21 +1,25 @@
 import React from "react";
 import "./Contact.css";
 import { NavLink } from "react-router-dom";
+
 function Contact() {
   return (
     <div className="contact-container">
       <div className="breadcrumb">
         <NavLink className="navcontact" to="/">
-            <span className="text-gray">Home / </span>
+          Home
         </NavLink>
+        <span> / </span>
         <span className="text-black">Contact</span>
       </div>
 
       <div className="contact-content">
+        {/* Chap tomon: Kontakt ma'lumotlari */}
         <div className="contact-info">
-          <div style={{ marginBottom: "2rem" }}>
+          <div className="info-section">
             <div className="info-header">
               <div className="icon-wrapper">
+                {/* Telefon ikonka */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -26,23 +30,22 @@ function Contact() {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.14-3.84-6.736-6.736l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
+                    d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.069-3.769-6.665-6.665l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
                   />
                 </svg>
               </div>
               <h3>Call To Us</h3>
             </div>
             <p className="info-text">We are available 24/7, 7 days a week.</p>
-            <p className="info-text" style={{ marginBottom: 0 }}>
-              Phone: +8801611112222
-            </p>
+            <p className="info-text">Phone: +8801611112222</p>
           </div>
 
           <hr className="divider" />
 
-          <div>
+          <div className="info-section">
             <div className="info-header">
               <div className="icon-wrapper">
+                {/* Xat ikonka */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -57,20 +60,19 @@ function Contact() {
                   />
                 </svg>
               </div>
-              <h3>Write To US</h3>
+              <h3>Write To Us</h3>
             </div>
             <p className="info-text">
               Fill out our form and we will contact you within 24 hours.
             </p>
             <p className="info-text">Emails: customer@exclusive.com</p>
-            <p className="info-text" style={{ marginBottom: 0 }}>
-              Emails: support@exclusive.com
-            </p>
+            <p className="info-text">Emails: support@exclusive.com</p>
           </div>
         </div>
 
+        {/* O'ng tomon: Yuborish Formasi */}
         <div className="contact-form-section">
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form className="form-wrapper" onSubmit={(e) => e.preventDefault()}>
             <div className="form-grid">
               <input
                 type="text"
@@ -94,7 +96,6 @@ function Contact() {
 
             <textarea
               placeholder="Your Message"
-              rows={8}
               className="form-input"
               required
             ></textarea>

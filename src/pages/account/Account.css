@@ -1,3 +1,14 @@
+:root {
+    --primary: #DB4444;
+    --primary-hover: #c93b3b;
+    --text-main: #000000;
+    --text-muted: #808080;
+    --bg-main: #FFFFFF;
+    --bg-input: #F5F5F5;
+    --border-color: #e2e8f0;
+    --transition: all 0.3s ease;
+}
+
 .account-container {
     max-width: 1200px;
     margin: 40px auto 80px auto;
@@ -11,41 +22,43 @@
     align-items: center;
     margin-bottom: 60px;
     font-size: 14px;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 .breadcrumb-fade {
-    color: #808080;
+    color: var(--text-muted);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: var(--transition);
 }
 
 .breadcrumb-fade:hover {
-    color: #000000;
+    color: var(--text-main);
 }
 
 .breadcrumb-separator {
-    color: #808080;
+    color: var(--text-muted);
     margin: 0 8px;
 }
 
 .breadcrumb-current {
     font-weight: 500;
-    color: #000000;
+    color: var(--text-main);
 }
 
 .welcome-msg {
-    color: #000000;
+    color: var(--text-main);
     font-size: 14px;
 }
 
 .user-name-highlight {
-    color: #DB4444;
-    font-weight: 500;
+    color: var(--primary);
+    font-weight: 600;
 }
 
 .account-layout {
     display: flex;
-    gap: 80px;
+    gap: 60px;
     align-items: flex-start;
 }
 
@@ -55,19 +68,19 @@
 }
 
 .sidebar-group {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 .sidebar-title {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 16px;
-    color: #000000;
+    color: var(--text-main);
 }
 
 .sidebar-list {
     list-style: none;
-    padding-left: 20px;
+    padding-left: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -75,67 +88,76 @@
 }
 
 .sidebar-item {
-    color: #808080;
+    color: var(--text-muted);
     font-size: 15px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-left: -12px;
 }
 
 .sidebar-item:hover {
-    color: #DB4444;
-    transform: translateX(3px);
-    font-weight: 500;
+    color: var(--primary);
+    background-color: rgba(219, 68, 68, 0.05);
+}
 
+.sidebar-item.active {
+    color: var(--primary);
+    font-weight: 500;
+    background-color: rgba(219, 68, 68, 0.08);
 }
 
 .profile-content {
     flex: 1;
+    width: 100%;
 }
 
 .profile-card {
-    background: #FFFFFF;
-    box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.05);
-    padding: 40px 60px;
-    border-radius: 8px;
+    background: var(--bg-main);
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.04);
+    padding: 50px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
 }
 
 .form-main-title {
-    color: #DB4444;
-    font-size: 20px;
+    color: var(--primary);
+    font-size: 22px;
     font-weight: 500;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 .form-row {
-    display: flex;
-    gap: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
     margin-bottom: 25px;
 }
 
 .form-group {
-    flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-.form-group label {
+.form-group label,
+.password-section label {
     font-size: 14px;
-    color: #000000;
-    margin-bottom: 8px;
-    font-weight: 400;
+    color: var(--text-main);
+    margin-bottom: 10px;
+    font-weight: 500;
 }
 
 input {
-    background-color: #F5F5F5;
+    background-color: var(--bg-input);
     border: 1px solid transparent;
-    padding: 14px 16px;
-    border-radius: 4px;
+    padding: 14px 18px;
+    border-radius: 8px;
     outline: none;
     font-size: 15px;
     color: #1e293b;
     width: 100%;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 input::placeholder {
@@ -143,27 +165,50 @@ input::placeholder {
 }
 
 input:focus {
-    background-color: #ffffff;
-    border-color: #DB4444;
-    box-shadow: 0 0 0 3px rgba(219, 68, 68, 0.1);
+    background-color: var(--bg-main);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(219, 68, 68, 0.1);
 }
 
 .password-section {
     display: flex;
     flex-direction: column;
-    margin-top: 15px;
-}
-
-.password-section label {
-    font-size: 14px;
-    color: #000000;
-    margin-bottom: 12px;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
 }
 
 .password-inputs {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 18px;
+}
+
+.password-input-group {
+    position: relative;
+    width: 100%;
+}
+
+.password-input-group input {
+    padding-right: 50px;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 18px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+}
+
+.eye-icon:hover,
+.password-input-group:focus-within .eye-icon {
+    color: var(--primary);
 }
 
 .form-actions {
@@ -171,39 +216,43 @@ input:focus {
     justify-content: flex-end;
     align-items: center;
     gap: 20px;
-    margin-top: 35px;
+    margin-top: 40px;
 }
 
 .btn-cancel {
     background: none;
     border: none;
-    color: #000000;
+    color: var(--text-main);
     cursor: pointer;
     font-size: 15px;
     font-weight: 500;
-    padding: 10px 15px;
-    transition: color 0.3s ease;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: var(--transition);
 }
 
 .btn-cancel:hover {
-    color: #DB4444;
+    background-color: var(--bg-input);
+    color: var(--primary);
 }
 
 .btn-save {
-    background-color: #DB4444;
+    background-color: var(--primary);
     color: white;
     border: none;
-    padding: 16px 48px;
-    border-radius: 4px;
+    padding: 14px 40px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 15px;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(219, 68, 68, 0.2);
 }
 
 .btn-save:hover {
-    background-color: #c93b3b;
+    background-color: var(--primary-hover);
     transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(219, 68, 68, 0.3);
 }
 
 .btn-save:active {
@@ -214,9 +263,11 @@ input:focus {
     background-color: #fca5a5;
     cursor: not-allowed;
     transform: none;
+    box-shadow: none;
 }
 
-@media (max-width: 900px) {
+
+@media (max-width: 992px) {
     .account-layout {
         flex-direction: column;
         gap: 40px;
@@ -224,66 +275,52 @@ input:focus {
 
     .account-sidebar {
         width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: space-between;
+        background: var(--bg-main);
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+    }
+
+    .sidebar-group {
+        margin-bottom: 0;
+        flex: 1;
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 18px;
     }
 
     .profile-card {
         padding: 30px 20px;
     }
+}
 
-    .form-row {
+@media (max-width: 576px) {
+    .account-header {
         flex-direction: column;
-        gap: 20px;
+        align-items: flex-start;
     }
 
     .form-actions {
-        flex-direction: column;
+        flex-direction: column-reverse;
         width: 100%;
     }
 
     .btn-cancel,
     .btn-save {
         width: 100%;
+        text-align: center;
     }
-}
 
-
-.password-inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.password-input-group {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.password-input-group input {
-    width: 100%;
-    padding-right: 45px;
-}
-
-.eye-icon {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #94a3b8;
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.3s ease;
-    z-index: 2;
-}
-
-.eye-icon:hover {
-    color: #DB4444;
-}
-
-.password-input-group:focus-within .eye-icon {
-    color: #DB4444;
+    .btn-cancel {
+        background-color: var(--bg-input);
+    }
 }

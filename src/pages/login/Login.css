@@ -194,3 +194,152 @@
 .custom-toast-error {
     border-left: 4px solid #DB4444 !important;
 }
+
+/* =========================================
+   MURAKKAB RESPONSIV MEDIA QUERIES (ADVANCED UI/UX)
+   ========================================= */
+
+/* 1. Katta ekranlar va noutbuklar uchun (1440px gacha) */
+@media (max-width: 1440px) {
+    .login-image-side {
+        flex: 1;
+        /* Rasm va forma proporsiyasini tenglashtirish */
+    }
+
+    .login-form-side {
+        padding: 40px 60px;
+    }
+}
+
+/* 2. Kichik noutbuklar va yotqizilgan planshetlar (Landscape Tablets - 1024px) */
+@media (max-width: 1024px) {
+    .login-form-box {
+        max-width: 350px;
+    }
+
+    .login-title {
+        font-size: 32px;
+    }
+}
+
+/* 3. Planshetlar uchun (Portrait Tablets - 992px) */
+@media (max-width: 992px) {
+    .login-container {
+        align-items: stretch;
+    }
+
+    .login-image-side img {
+        max-width: 95%;
+    }
+
+    .login-form-side {
+        padding: 40px 30px;
+    }
+}
+
+/* 4. Katta mobil telefonlar va kichik planshetlar (768px gacha) */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        /* Yonma-yon turganlarni ustma-ust qilish */
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .login-image-side {
+        width: 100%;
+        height: 350px;
+        /* Rasm qismini header kabi tepaga o'tkazish */
+        flex: none;
+        background-color: var(--bg-image-side, #CBE4E8);
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .login-image-side img {
+        height: 80%;
+        transform: translateY(10px);
+    }
+
+    .login-form-side {
+        width: 100%;
+        padding: 50px 20px;
+        align-items: flex-start;
+    }
+
+    .login-form-box {
+        max-width: 100%;
+        /* Forma butun kenglikni egallaydi */
+    }
+}
+
+/* 5. Oddiy mobil telefonlar (576px gacha) */
+@media (max-width: 576px) {
+    .login-image-side {
+        display: none;
+        /* UX qoidasi: Kichik ekranda chalg'ituvchi rasmni olib tashlab, e'tiborni faqat formaga qaratish */
+    }
+
+    .login-container {
+        justify-content: center;
+        padding: 24px;
+        background-color: #f9fafb;
+        /* Formani vizual ajratish uchun yengil orqa fon */
+    }
+
+    .login-form-side {
+        background-color: #ffffff;
+        padding: 40px 24px;
+        border-radius: 16px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        /* Glassmorphism uslubidagi yumshoq soya */
+    }
+
+    .login-title {
+        font-size: 28px;
+        letter-spacing: 0;
+    }
+
+    .login-actions {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 16px;
+    }
+
+    .forgot-password {
+        align-self: center;
+        margin-top: 8px;
+    }
+}
+
+@media (max-width: 380px) {
+    .login-form-side {
+        padding: 30px 16px;
+    }
+
+    .login-title {
+        font-size: 24px;
+    }
+
+    .input-group {
+        padding-bottom: 4px;
+    }
+
+    .login-input {
+        font-size: 15px;
+    }
+}
+
+@media (max-height: 700px) and (orientation: landscape) {
+    .login-container {
+        height: auto;
+        min-height: 100vh;
+        padding: 20px 0;
+    }
+
+}

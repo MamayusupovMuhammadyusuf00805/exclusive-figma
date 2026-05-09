@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Cart.css";
 import { NavLink } from "react-router-dom";
+import { IoCloseOutline } from "react-icons/io5";
 
 function Cart() {
-  const cartItems = [
+  const [cartItems, setCartItems] = useState([
     {
       id: 1,
       name: "LCD Monitor",
@@ -18,46 +19,63 @@ function Cart() {
       quantity: 2,
       image: "/imgs/g92-2-500x500 1.svg",
     },
-  ];
+  ]);
+
+  const handleQuantityChange = (id, newQuantity) => {
+    setCartItems(
+      cartItems.map((item) =>
+        item.id === id ? { ...item, quantity: newQuantity } : item,
+      ),
+    );
+  };
 
   return (
     <div className="cart-container">
       <div className="breadcrumb">
-        <NavLink to="/" navcart>
-            <span>Home</span> / <span className="active">Cart</span>
-        </NavLink>
+        <NavLink to="/">Home</NavLink>
+        <span> / </span>
+        <span className="active">Cart</span>
       </div>
 
-      <table className="cart-table">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cartItems.map((item) => (
-            <tr key={item.id} className="cart-row">
-              <td className="product-info1">
-                <div className="img-wrapper">
-                  <img src={item.image} alt={item.name} />
-                  <span className="remove-icon">×</span>
+      <div className="cart-list">
+        <div className="cart-header">
+          <div>Product</div>
+          <div>Price</div>
+          <div>Quantity</div>
+          <div>Subtotal</div>
+        </div>
+
+        {cartItems.map((item) => (
+          <div key={item.id} className="cart-row">
+            <div className="product-info1">
+              <div className="img-wrapper">
+                <div className="remove-icon">
+                  <IoCloseOutline />
                 </div>
-                {item.name}
-              </td>
-              <td>${item.price}</td>
-              <td>
-                <div className="quantity-box">
-                  <input type="number" defaultValue={item.quantity} min="1" />
-                </div>
-              </td>
-              <td>${item.price * item.quantity}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                <img src={item.image} alt={item.name} />
+              </div>
+              <span className="product-name">{item.name}</span>
+            </div>
+
+            <div className="cart-price">${item.price}</div>
+
+            <div className="cart-quantity">
+              <div className="quantity-box">
+                <input
+                  type="number"
+                  value={item.quantity}
+                  min="1"
+                  onChange={(e) =>
+                    handleQuantityChange(item.id, parseInt(e.target.value) || 1)
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="cart-subtotal">${item.price * item.quantity}</div>
+          </div>
+        ))}
+      </div>
 
       <div className="cart-actions">
         <button className="secondary-btn">Return To Shop</button>
