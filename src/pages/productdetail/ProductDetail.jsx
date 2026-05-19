@@ -12,13 +12,13 @@ import Productmax from "../../components/Productmax";
 import { DataContext } from "../../App";
 import { baseUrl } from "../../services";
 
-const SIZES   = ["XS", "S", "M", "L", "XL"];
-const COLORS  = [
-  { name: "blue",  label: "Sky Blue" },
-  { name: "red",   label: "Coral Red" },
+const SIZES = ["XS", "S", "M", "L", "XL"];
+const COLORS = [
+  { name: "blue", label: "Sky Blue" },
+  { name: "red", label: "Coral Red" },
   { name: "black", label: "Midnight" },
 ];
-const RATING  = 4; // out of 5
+const RATING = 4;
 
 function ProductDetail() {
   const { id } = useParams();
@@ -27,9 +27,9 @@ function ProductDetail() {
 
   const product = productData?.find((item) => item.id.toString() === id);
 
-  const [quantity,         setQuantity]         = useState(1);
-  const [selectedSize,     setSelectedSize]     = useState("M");
-  const [selectedColor,    setSelectedColor]    = useState("blue");
+  const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState("M");
+  const [selectedColor, setSelectedColor] = useState("blue");
   const [selectedImgIndex, setSelectedImgIndex] = useState(0);
 
   /* ✅ FIX: scroll inside useEffect, not during render */
@@ -55,6 +55,18 @@ function ProductDetail() {
 
   const decreaseQty = () => setQuantity((q) => Math.max(1, q - 1));
   const increaseQty = () => setQuantity((q) => q + 1);
+
+  // ✅ Faqat kiyimlar uchun size ko'rsatish
+  const shouldShowSize = () => {
+    if (!product?.category) return false;
+    const categoryName = typeof product.category === 'object' 
+      ? product.category.title?.toLowerCase() 
+      : product.category.toLowerCase();
+    
+    // Kiyim kategoriyalari
+    const clothingCategories = ['clothing', 'kiyim', 'clothes', 'fashion', 'apparel', 'shirt', 'dress', 'pants', 'jacket'];
+    return clothingCategories.some(cat => categoryName?.includes(cat));
+  };
 
   /* Loading / not found state */
   if (!productData) {
@@ -206,22 +218,24 @@ function ProductDetail() {
           </div>
 
           {/* Size picker */}
-          <div className="option-section">
-            <span className="option-label">Size:</span>
-            <div className="size-options" role="group" aria-label="Select size">
-              {SIZES.map((size) => (
-                <button
-                  key={size}
-                  className={`size-btn ${selectedSize === size ? "active" : ""}`}
-                  onClick={() => setSelectedSize(size)}
-                  aria-pressed={selectedSize === size}
-                  aria-label={`Size ${size}`}
-                >
-                  {size}
-                </button>
-              ))}
+          {shouldShowSize() && (
+            <div className="option-section">
+              <span className="option-label">Size:</span>
+              <div className="size-options" role="group" aria-label="Select size">
+                {SIZES.map((size) => (
+                  <button
+                    key={size}
+                    className={`size-btn ${selectedSize === size ? "active" : ""}`}
+                    onClick={() => setSelectedSize(size)}
+                    aria-pressed={selectedSize === size}
+                    aria-label={`Size ${size}`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Action row */}
           <div className="action-row">
@@ -302,9 +316,9 @@ function ProductDetail() {
               slidesPerView={4}
               navigation
               breakpoints={{
-                0:    { slidesPerView: 1, spaceBetween: 12 },
-                480:  { slidesPerView: 2, spaceBetween: 14 },
-                768:  { slidesPerView: 3, spaceBetween: 16 },
+                0: { slidesPerView: 1, spaceBetween: 12 },
+                480: { slidesPerView: 2, spaceBetween: 14 },
+                768: { slidesPerView: 3, spaceBetween: 16 },
                 1024: { slidesPerView: 4, spaceBetween: 20 },
               }}
             >

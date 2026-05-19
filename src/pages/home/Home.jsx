@@ -61,6 +61,18 @@ function Home() {
     closeModal();
   };
 
+  // ✅ Faqat kiyimlar uchun size ko'rsatish
+  const shouldShowSizeInModal = (product) => {
+    if (!product?.category) return false;
+    const categoryName = typeof product.category === 'object' 
+      ? product.category.title?.toLowerCase() 
+      : product.category.toLowerCase();
+    
+    // Kiyim kategoriyalari
+    const clothingCategories = ['clothing', 'kiyim', 'clothes', 'fashion', 'apparel', 'shirt', 'dress', 'pants', 'jacket'];
+    return clothingCategories.some(cat => categoryName?.includes(cat));
+  };
+
   const [timeLeft, setTimeLeft] = useState({
     days: "00",
     hours: "00",
@@ -147,20 +159,22 @@ function Home() {
                 </div>
               </div>
 
-              <div className="modal-option-group">
-                <span className="modal-label">Size:</span>
-                <div className="size-options">
-                  {["XS", "S", "M", "L", "XL"].map((size) => (
-                    <button
-                      key={size}
-                      className={`size-btn ${selectedSize === size ? "active" : ""}`}
-                      onClick={() => setSelectedSize(size)}
-                    >
-                      {size}
-                    </button>
-                  ))}
+              {shouldShowSizeInModal(selectedProduct) && (
+                <div className="modal-option-group">
+                  <span className="modal-label">Size:</span>
+                  <div className="size-options">
+                    {["XS", "S", "M", "L", "XL"].map((size) => (
+                      <button
+                        key={size}
+                        className={`size-btn ${selectedSize === size ? "active" : ""}`}
+                        onClick={() => setSelectedSize(size)}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div className="modal-option-group">
                 <span className="modal-label">Quantity:</span>

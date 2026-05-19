@@ -20,7 +20,6 @@ function Productmax({ item, onEyeClick, isWishlist, onAddToCart }) {
 
   const isLiked = wishlist?.some((wItem) => wItem.id === item?.id);
 
-  // Narxlarni aniq Number (raqam) turiga o'girib olish
   const currentPrice = Number(item?.price) || 0;
   const originalPrice =
     Number(item?.originalPrice) || Math.round(currentPrice * 1.25);
@@ -31,7 +30,6 @@ function Productmax({ item, onEyeClick, isWishlist, onAddToCart }) {
       ? Math.round(((originalPrice - currentPrice) / originalPrice) * 100)
       : 0;
 
-  // Rating stars renderer
   const renderStars = (rating = item?.rating ?? 4) => {
     const stars = [];
     const fullStars = Math.floor(rating);
