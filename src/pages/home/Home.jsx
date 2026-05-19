@@ -1,8 +1,11 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import "./Home.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
 import Marquee from "react-fast-marquee";
+import { useTranslation } from 'react-i18next';
+import PremiumProductCard from "../../components/PremiumProductCard";
+import { motion } from 'framer-motion';
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -12,23 +15,18 @@ import {
   IoChevronForwardOutline,
   IoArrowForwardOutline,
   IoArrowBackOutline,
-  IoHeartOutline,
-  IoEyeOutline,
-  IoStar,
-  IoPhonePortraitOutline,
-  IoDesktopOutline,
-  IoCameraOutline,
   IoCloseOutline,
 } from "react-icons/io5";
 
 import { FaApple } from "react-icons/fa";
 import Productmax from "../../components/Productmax";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DataContext } from "../../App";
 import { baseUrl } from "../../services/index";
 
 function Home() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { categoryData, productData } = useContext(DataContext);
   const [showAllBestSelling, setShowAllBestSelling] = useState(false);
 
@@ -126,7 +124,7 @@ function Home() {
                 className="modal-image"
               />
               <button className="modal-show-more" onClick={goDetailFromModal}>
-                Show More →
+                {t('home.viewAll')} →
               </button>
             </div>
 
@@ -138,7 +136,7 @@ function Home() {
               </h2>
 
               <div className="modal-option-group">
-                <span className="modal-label">Color:</span>
+                <span className="modal-label">{t('product.colors')}:</span>
                 <div className="color-options">
                   <div
                     className={`color-circle black ${selectedColor === "black" ? "active" : ""}`}
@@ -161,7 +159,7 @@ function Home() {
 
               {shouldShowSizeInModal(selectedProduct) && (
                 <div className="modal-option-group">
-                  <span className="modal-label">Size:</span>
+                  <span className="modal-label">{t('product.size')}:</span>
                   <div className="size-options">
                     {["XS", "S", "M", "L", "XL"].map((size) => (
                       <button
@@ -177,7 +175,7 @@ function Home() {
               )}
 
               <div className="modal-option-group">
-                <span className="modal-label">Quantity:</span>
+                <span className="modal-label">{t('product.quantity')}:</span>
                 <div className="quantity-control">
                   <button onClick={() => handleQuantity("dec")}>-</button>
                   <span>{modalQuantity}</span>
@@ -186,13 +184,13 @@ function Home() {
               </div>
 
               <div className="modal-price">
-                <span className="modal-label">Price:</span>
+                <span className="modal-label">{t('cart.price')}:</span>
                 <span className="price-value">
                   ${selectedProduct?.price * modalQuantity}
                 </span>
               </div>
 
-              <button className="modal-add-to-cart">Add to Cart</button>
+              <button className="modal-add-to-cart">{t('home.addToCart')}</button>
             </div>
           </div>
         </div>
@@ -265,7 +263,13 @@ function Home() {
         </main>
       </div>
 
-      <section className="flash-sales-section">
+      <motion.section 
+        className="flash-sales-section"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="section-subtitle">
           <div className="red-box"></div>
           <span>Today's</span>
@@ -273,7 +277,7 @@ function Home() {
 
         <div className="section-header">
           <div className="title-timer-wrapper">
-            <h2 className="section-title">Flash Sales</h2>
+            <h2 className="section-title">{t('home.flashSales')}</h2>
 
             <div className="countdown-container">
               <div className="timer-unit">
@@ -326,12 +330,18 @@ function Home() {
             </SwiperSlide>
           ))}
         </Swiper>
-      </section>
+      </motion.section>
 
-      <section className="category-browse-section">
+      <motion.section 
+        className="category-browse-section"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+      >
         <div className="section-subtitle">
           <div className="red-box"></div>
-          <span>Categories</span>
+          <span>{t('home.categories')}</span>
         </div>
 
         <div className="section-header">
@@ -360,21 +370,27 @@ function Home() {
             ))}
           </Marquee>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="best-selling-section">
+      <motion.section 
+        className="best-selling-section"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="section-subtitle">
           <div className="red-box"></div>
           <span>This Month</span>
         </div>
 
         <div className="section-header">
-          <h2 className="section-title">Best Selling Products</h2>
+          <h2 className="section-title">{t('home.bestSelling')}</h2>
           <button
             className="view-all-red-btn"
             onClick={() => setShowAllBestSelling(!showAllBestSelling)}
           >
-            {showAllBestSelling ? "Show Less" : "View All"}
+            {showAllBestSelling ? "Show Less" : t('home.viewAll')}
           </button>
         </div>
 
@@ -390,12 +406,18 @@ function Home() {
                 />
               ))
           ) : (
-            <div className="loading">Yuklanmoqda...</div>
+            <div className="loading">{t('common.loading')}</div>
           )}
         </div>
-      </section>
+      </motion.section>
 
-      <div className="banner-container">
+      <motion.div 
+        className="banner-container"
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+      >
         <div className="banner-content">
           <span className="category-text">Categories</span>
           <h1 className="banner-title">
@@ -420,14 +442,20 @@ function Home() {
               <span className="time-label">Seconds</span>
             </div>
           </div>
-          <button className="buy-button">Buy Now!</button>
+          <button className="buy-button">{t('product.buyNow')}!</button>
         </div>
         <div className="banner-image">
           <img src="/imgs/kalonka.svg" alt="Music" />
         </div>
-      </div>
+      </motion.div>
 
-      <section className="our-products-section">
+      <motion.section 
+        className="our-products-section"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="container">
           <div className="section-header-wrapper">
             <div className="subtitle-container">
@@ -435,7 +463,7 @@ function Home() {
               <span className="red-tag">Our Products</span>
             </div>
             <div className="title-row">
-              <h2 className="section-title">Explore Our Products</h2>
+              <h2 className="section-title">{t('home.exploreProducts')}</h2>
               <div className="navigation-arrows">
                 <button className="arrow-btn">←</button>
                 <button className="arrow-btn">→</button>
@@ -455,20 +483,26 @@ function Home() {
                   />
                 ))
             ) : (
-              <p>Yuklanmoqda...</p>
+              <p>{t('common.loading')}</p>
             )}
           </div>
 
           <div className="view-all-container">
-            <button className="view-all-red-btn">View All Products</button>
+            <button className="view-all-red-btn">{t('home.viewAll')} Products</button>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      <div className="new-arrival-container">
+      <motion.div 
+        className="new-arrival-container"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="section-title">
           <div className="red-label">Featured</div>
-          <h2>New Arrival</h2>
+          <h2>{t('home.newArrival')}</h2>
         </div>
 
         <div className="arrival-grid">
@@ -508,7 +542,7 @@ function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <div className="features-container">
         <div className="feature-item">
@@ -517,8 +551,8 @@ function Home() {
               <img src="/imgs/icon-delivery.svg" alt="Delivery" />
             </div>
           </div>
-          <h3>FREE AND FAST DELIVERY</h3>
-          <p>Free delivery for all orders over $140</p>
+          <h3>{t('service.freeDelivery')}</h3>
+          <p>{t('service.freeDeliveryDesc')}</p>
         </div>
 
         <div className="feature-item">
@@ -530,8 +564,8 @@ function Home() {
               />
             </div>
           </div>
-          <h3>24/7 CUSTOMER SERVICE</h3>
-          <p>Friendly 24/7 customer support</p>
+          <h3>{t('service.customerService')}</h3>
+          <p>{t('service.customerServiceDesc')}</p>
         </div>
 
         <div className="feature-item">
@@ -540,8 +574,8 @@ function Home() {
               <img src="/imgs/Icon-secure.svg" alt="Secure" />
             </div>
           </div>
-          <h3>MONEY BACK GUARANTEE</h3>
-          <p>We return money within 30 days</p>
+          <h3>{t('service.moneyBack')}</h3>
+          <p>{t('service.moneyBackDesc')}</p>
         </div>
 
         <div className="scroll-top">

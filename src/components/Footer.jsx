@@ -7,8 +7,11 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { IoSendOutline } from "react-icons/io5";
+import { useTranslation } from 'react-i18next';
 
 function Footer() {
+  const { t } = useTranslation();
+  
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -16,10 +19,10 @@ function Footer() {
         {/* ===== COLUMN 1: SUBSCRIBE ===== */}
         <div className="footer-column">
           <h3 className="footer-logo">Exclusive</h3>
-          <h4>Subscribe</h4>
-          <p className="subscribe-sub">Get 10% off your first order</p>
+          <h4>{t('footer.subscribe')}</h4>
+          <p className="subscribe-sub">{t('footer.get10off')}</p>
           <div className="subscribe-box">
-            <input type="email" placeholder="Enter your email" />
+            <input type="email" placeholder={t('footer.enterEmail')} />
             <button className="send-btn" aria-label="Subscribe">
               <IoSendOutline size={17} />
             </button>
@@ -28,7 +31,7 @@ function Footer() {
 
         {/* ===== COLUMN 2: SUPPORT ===== */}
         <div className="footer-column">
-          <h4>Support</h4>
+          <h4>{t('footer.support')}</h4>
           <p>111 Bijoy sarani, Dhaka,<br />DH 1515, Bangladesh.</p>
           <p>exclusive@gmail.com</p>
           <p>+88015-88888-9999</p>
@@ -36,24 +39,24 @@ function Footer() {
 
         {/* ===== COLUMN 3: ACCOUNT ===== */}
         <div className="footer-column">
-          <h4>Account</h4>
+          <h4>{t('footer.account')}</h4>
           <ul>
-            <li>My Account</li>
-            <li>Login / Register</li>
-            <li>Cart</li>
-            <li>Wishlist</li>
+            <li>{t('account.myAccount')}</li>
+            <li>{t('auth.login')} / {t('auth.signup')}</li>
+            <li>{t('nav.cart')}</li>
+            <li>{t('nav.wishlist')}</li>
             <li>Shop</li>
           </ul>
         </div>
 
         {/* ===== COLUMN 4: QUICK LINK ===== */}
         <div className="footer-column">
-          <h4>Quick Link</h4>
+          <h4>{t('footer.quickLink')}</h4>
           <ul>
-            <li>Privacy Policy</li>
-            <li>Terms Of Use</li>
-            <li>FAQ</li>
-            <li>Contact</li>
+            <li>{t('footer.privacyPolicy')}</li>
+            <li>{t('footer.termsOfUse')}</li>
+            <li>{t('footer.faq')}</li>
+            <li>{t('nav.contact')}</li>
           </ul>
         </div>
 

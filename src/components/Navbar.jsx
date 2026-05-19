@@ -16,9 +16,12 @@ import {
 } from "react-icons/fi";
 import { NavLink, useNavigate } from "react-router-dom";
 import { DataContext } from "../App";
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 function Navbar() {
   const { wishlist, cartData } = useContext(DataContext);
+  const { t } = useTranslation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -90,9 +93,7 @@ function Navbar() {
             <span>Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!</span>
             <a href="#">Shop Now</a>
           </div>
-          <div className="lang-selector" aria-label="Language selector">
-            English <IoChevronDownOutline size={14} />
-          </div>
+          <LanguageSwitcher />
         </div>
 
         {/* ===== MAIN NAV ===== */}
@@ -112,10 +113,10 @@ function Navbar() {
 
           {/* Desktop menu */}
           <ul className="nav-menu" role="list">
-            <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/contact">Contact</NavLink></li>
-            <li><NavLink to="/about">About</NavLink></li>
-            {!isAuth && <li><NavLink to="/sign">Sign Up</NavLink></li>}
+            <li><NavLink to="/">{t('nav.home')}</NavLink></li>
+            <li><NavLink to="/contact">{t('nav.contact')}</NavLink></li>
+            <li><NavLink to="/about">{t('nav.about')}</NavLink></li>
+            {!isAuth && <li><NavLink to="/sign">{t('nav.signup')}</NavLink></li>}
           </ul>
 
           {/* Desktop actions */}
@@ -123,7 +124,7 @@ function Navbar() {
             <div className="search-container" role="search">
               <input
                 type="search"
-                placeholder="What are you looking for?"
+                placeholder={t('nav.search')}
                 aria-label="Search products"
               />
               <IoSearchOutline className="search-icon" size={18} aria-hidden="true" />
@@ -168,10 +169,10 @@ function Navbar() {
                         onClick={closeDropdown}
                         role="menuitem"
                       >
-                        <li><FiUser size={16} /> <span>Manage My Account</span></li>
+                        <li><FiUser size={16} /> <span>{t('account.myAccount')}</span></li>
                       </NavLink>
                       <li onClick={closeDropdown} role="menuitem">
-                        <FiShoppingBag size={16} /> <span>My Order</span>
+                        <FiShoppingBag size={16} /> <span>{t('account.myOrders')}</span>
                       </li>
                       <li onClick={closeDropdown} role="menuitem">
                         <FiXCircle size={16} /> <span>My Cancellations</span>
@@ -180,7 +181,7 @@ function Navbar() {
                         <FiStar size={16} /> <span>My Reviews</span>
                       </li>
                       <li onClick={handleLogout} role="menuitem">
-                        <FiLogOut size={16} /> <span>Logout</span>
+                        <FiLogOut size={16} /> <span>{t('account.logout')}</span>
                       </li>
                     </ul>
                   </div>
@@ -263,7 +264,7 @@ function Navbar() {
             <IoSearchOutline size={18} color="#808080" aria-hidden="true" />
             <input
               type="search"
-              placeholder="What are you looking for?"
+              placeholder={t('nav.search')}
               aria-label="Search products"
             />
           </div>
@@ -271,21 +272,21 @@ function Navbar() {
 
         {/* Drawer navigation */}
         <nav className="drawer-nav" aria-label="Mobile navigation">
-          <NavLink to="/" onClick={closeMobileMenu}>Home</NavLink>
-          <NavLink to="/contact" onClick={closeMobileMenu}>Contact</NavLink>
-          <NavLink to="/about" onClick={closeMobileMenu}>About</NavLink>
+          <NavLink to="/" onClick={closeMobileMenu}>{t('nav.home')}</NavLink>
+          <NavLink to="/contact" onClick={closeMobileMenu}>{t('nav.contact')}</NavLink>
+          <NavLink to="/about" onClick={closeMobileMenu}>{t('nav.about')}</NavLink>
 
           {!isAuth && (
-            <NavLink to="/sign" onClick={closeMobileMenu}>Sign Up</NavLink>
+            <NavLink to="/sign" onClick={closeMobileMenu}>{t('nav.signup')}</NavLink>
           )}
 
           {isAuth && (
             <>
               <NavLink to="/account" onClick={closeMobileMenu}>
-                <FiUser size={16} /> Manage My Account
+                <FiUser size={16} /> {t('account.myAccount')}
               </NavLink>
               <span className="drawer-nav-item">
-                <FiShoppingBag size={16} /> My Order
+                <FiShoppingBag size={16} /> {t('account.myOrders')}
               </span>
               <span className="drawer-nav-item">
                 <FiXCircle size={16} /> My Cancellations
@@ -302,7 +303,7 @@ function Navbar() {
           <div className="drawer-footer">
             <button className="drawer-logout-btn" onClick={handleLogout}>
               <FiLogOut size={16} />
-              Logout
+              {t('account.logout')}
             </button>
           </div>
         )}
