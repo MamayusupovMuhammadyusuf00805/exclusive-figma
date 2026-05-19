@@ -1,35 +1,62 @@
-import { useTranslation } from 'react-i18next';
-import './LanguageSwitcher.css';
+import React, { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { IoChevronDownOutline } from "react-icons/io5";
 
-const LanguageSwitcher = () => {
+const languages = [
+  { code: "en", label: "English" },
+  { code: "uz", label: "O'zbekcha" },
+  { code: "ru", label: "Русский" },
+];
+
+function LanguageSwitcher() {
   const { i18n } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-    localStorage.setItem('language', lng);
+  // Hozirgi tilni topish (agar topilmasa, default ingliz tili)
+  const currentLang =
+    languages.find((lang) => lang.code === i18n.language) || languages[0];
+
+  // Tashqariga bosganda yopilishi uchun
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const changeLanguage = (code) => {
+    i18n.changeLanguage(code);
+    setIsOpen(false);
   };
 
-  const languages = [
-    { code: 'uz', label: 'O\'zbekcha', flag: '🇺🇿' },
-    { code: 'ru', label: 'Русский', flag: '🇷🇺' },
-    { code: 'en', label: 'English', flag: '🇬🇧' }
-  ];
-
   return (
-    <div className="language-switcher">
-      <select 
-        value={i18n.language} 
-        onChange={(e) => changeLanguage(e.target.value)}
-        className="language-select"
+    <div className="lang-selector" ref={dropdownRef}>
+      <button
+        className="lang-btn"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
       >
+        {currentLang.label}
+        <IoChevronDownOutline className={`lang-icon ${isOpen ? "open" : ""}`} />
+      </button>
+
+      <div className={`lang-dropdown ${isOpen ? "show" : ""}`}>
         {languages.map((lang) => (
-          <option key={lang.code} value={lang.code}>
-            {lang.flag} {lang.label}
-          </option>
+          <button
+            key={lang.code}
+            className={`lang-item ${currentLang.code === lang.code ? "active" : ""}`}
+            onClick={() => changeLanguage(lang.code)}
+          >
+            {lang.label}
+          </button>
         ))}
-      </select>
+      </div>
     </div>
   );
-};
+}
 
 export default LanguageSwitcher;

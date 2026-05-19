@@ -1,5 +1,6 @@
 import React from "react";
 import "./Footer.css";
+import { Link } from "react-router-dom"; // React Router qo'shildi
 import {
   FaFacebookF,
   FaInstagram,
@@ -7,56 +8,77 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { IoSendOutline } from "react-icons/io5";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 function Footer() {
   const { t } = useTranslation();
-  
+
   return (
     <footer className="footer">
       <div className="footer-container">
-
         {/* ===== COLUMN 1: SUBSCRIBE ===== */}
         <div className="footer-column">
           <h3 className="footer-logo">Exclusive</h3>
-          <h4>{t('footer.subscribe')}</h4>
-          <p className="subscribe-sub">{t('footer.get10off')}</p>
+          <h4>{t("footer.subscribe")}</h4>
+          <p className="subscribe-sub">{t("footer.get10off")}</p>
           <div className="subscribe-box">
-            <input type="email" placeholder={t('footer.enterEmail')} />
+            <input type="email" placeholder={t("footer.enterEmail")} />
             <button className="send-btn" aria-label="Subscribe">
-              <IoSendOutline size={17} />
+              <IoSendOutline size={17} className="send-icon" />
             </button>
           </div>
         </div>
 
         {/* ===== COLUMN 2: SUPPORT ===== */}
         <div className="footer-column">
-          <h4>{t('footer.support')}</h4>
-          <p>111 Bijoy sarani, Dhaka,<br />DH 1515, Bangladesh.</p>
+          <h4>{t("footer.support")}</h4>
+          <p>
+            111 Bijoy sarani, Dhaka,
+            <br />
+            DH 1515, Bangladesh.
+          </p>
           <p>exclusive@gmail.com</p>
           <p>+88015-88888-9999</p>
         </div>
 
         {/* ===== COLUMN 3: ACCOUNT ===== */}
         <div className="footer-column">
-          <h4>{t('footer.account')}</h4>
+          <h4>{t("footer.account")}</h4>
           <ul>
-            <li>{t('account.myAccount')}</li>
-            <li>{t('auth.login')} / {t('auth.signup')}</li>
-            <li>{t('nav.cart')}</li>
-            <li>{t('nav.wishlist')}</li>
-            <li>Shop</li>
+            <li>
+              <Link to="/account">{t("account.myAccount")}</Link>
+            </li>
+            <li>
+              <Link to="/login">{t("auth.login")} / {t("auth.signup")}</Link>
+            </li>
+            <li>
+              <Link to="/cart">{t("nav.cart")}</Link>
+            </li>
+            <li>
+              <Link to="/washlist">{t("Washlist")}</Link>
+            </li>
+            <li>
+              <Link to="/shop">Shop</Link>
+            </li>
           </ul>
         </div>
 
         {/* ===== COLUMN 4: QUICK LINK ===== */}
         <div className="footer-column">
-          <h4>{t('footer.quickLink')}</h4>
+          <h4>{t("footer.quickLink")}</h4>
           <ul>
-            <li>{t('footer.privacyPolicy')}</li>
-            <li>{t('footer.termsOfUse')}</li>
-            <li>{t('footer.faq')}</li>
-            <li>{t('nav.contact')}</li>
+            <li>
+              <Link to="/privacy-policy">{t("footer.privacyPolicy")}</Link>
+            </li>
+            <li>
+              <Link to="/terms-of-use">{t("footer.termsOfUse")}</Link>
+            </li>
+            <li>
+              <Link to="/faq">{t("footer.faq")}</Link>
+            </li>
+            <li>
+              <Link to="/contact">{t("nav.contact")}</Link>
+            </li>
           </ul>
         </div>
 
@@ -91,7 +113,10 @@ function Footer() {
             <button className="social-icon-btn twitter" aria-label="Twitter">
               <FaTwitter />
             </button>
-            <button className="social-icon-btn instagram" aria-label="Instagram">
+            <button
+              className="social-icon-btn instagram"
+              aria-label="Instagram"
+            >
               <FaInstagram />
             </button>
             <button className="social-icon-btn linkedin" aria-label="LinkedIn">
@@ -99,12 +124,13 @@ function Footer() {
             </button>
           </div>
         </div>
-
       </div>
 
       {/* ===== FOOTER BOTTOM ===== */}
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} Copyright Exclusive. All rights reserved</p>
+        <p>
+          © {new Date().getFullYear()} Copyright Exclusive. All rights reserved
+        </p>
       </div>
     </footer>
   );
